@@ -50,9 +50,10 @@ public class DepthFirstSearcher implements IDeWaySearcher
                 stack.push(u);
                 visited.add(map.toLineNum(u));
                 parent.put(u, v);
-                if(v.equals(end))
+                if(u.equals(end))
                 {
                     ENDED = true;
+					v = u;
                     break;
                 }
             }
