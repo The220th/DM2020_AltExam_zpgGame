@@ -1,4 +1,3 @@
-//Должен быть Ли, вышло... Чудо какое-то. Может из-за того, что нет диагонали? Идет по прямым чисто
 package ZPG.GameLogic.Searchers;
 
 import java.util.*;
@@ -48,22 +47,24 @@ public class LiSearcher implements IDeWaySearcher
 
         ENDED = false;
         v = start;
+		visited.add(map.toLineNum(v));
         while(!ENDED)
         {
 			time++;
 			while(!deque.isEmpty())
 			{
 				u = deque.pollFirst();
-				visited.add(map.toLineNum(u));
+				
 				if(u.equals(end))
 				{
 					ENDED = true;
 					v = u;
 					break;
 				}
-				buff = map.getListOfAdjacentVertices(u, false, visited);
+				buff = map.getListOfAdjacentVertices(u, true, visited);
 				for(sPoint b : buff)
 				{
+					visited.add(map.toLineNum(b));
 					parent.put(b, u);
 					distance.put(b, time);
 					buffDeque.addLast(b);
@@ -77,7 +78,7 @@ public class LiSearcher implements IDeWaySearcher
 			}
 			
         }
-		//System.out.println(distance.get(end));	//time финиша
+		System.out.println(distance.get(end));	//time финиша
         if(v.equals(end))
         {
             v = end;
