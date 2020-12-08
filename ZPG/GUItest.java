@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.geom.*;
 
 import ZPG.MapGenerator.WorldMap;
+import ZPG.sMap.sPoint;
+import ZPG.GameLogic.Searchers.*;
 
 public class GUItest
 {
@@ -40,6 +42,7 @@ class sComponent extends JComponent
     private int DEFAULT_HEIGHT;
     private int sizeble;
     private WorldMap map;
+    LinkedList<sPoint> ll;
     
     public sComponent(int Sizeble)
     {
@@ -49,6 +52,13 @@ class sComponent extends JComponent
         
         DEFAULT_WIDTH = map.getMaxSize()*Sizeble;
         DEFAULT_HEIGHT = map.getMaxSize()*Sizeble;
+
+        //delete========
+        //IDeWaySearcher test = new DepthFirstSearcher(map);
+        IDeWaySearcher test = new BreadthFirstSearcher(map);
+        ll = (LinkedList<sPoint>)test.search(new sPoint(7, 10), new sPoint(475, 308));
+        System.out.println("\n\n" + ll + "\n");
+        //==============
     }
 
     public void paintComponent(Graphics gOld)
@@ -59,6 +69,9 @@ class sComponent extends JComponent
         for(int i = 0; i < n; i++)
             for(int j = 0; j < n; j++)
                 paintBlock(j, i, map.getBlock(i, j).getColor(), g);
+        
+        for(sPoint next : ll)
+            paintBlock(next.getX(), next.getY(), Color.RED, g);
     }
 
     public Dimension getPreferredSize()

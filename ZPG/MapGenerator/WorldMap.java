@@ -3,6 +3,8 @@ package ZPG.MapGenerator;
 import java.lang.*;
 import java.util.*;
 
+import javax.lang.model.util.ElementScanner14;
+
 import java.awt.Color;
 import ZPG.sMap.sPoint;
 
@@ -10,6 +12,8 @@ import ZPG.MapGenerator.Block;
 
 import ZPG.MapGenerator.LandscapeGenerator;
 import ZPG.MapGenerator.TownsGenerator;
+
+import ZPG.GameLogic.SetBit;
 
 public class WorldMap
 {
@@ -361,7 +365,7 @@ public class WorldMap
         int[][] rawMap_wet;
         
         //высоты
-        LandscapeGenerator heights = new LandscapeGenerator(size_pow2, maxHeight, 2, 0.8f);
+        LandscapeGenerator heights = new LandscapeGenerator(size_pow2, maxHeight, 2, 0.7f);
         rawMap_heights = heights.genMap();
         heights = null;
         
@@ -369,7 +373,7 @@ public class WorldMap
         tg.addTowns();
 
         //влажность
-        LandscapeGenerator wets = new LandscapeGenerator(size_pow2, maxWet, 3, 0.1f);
+        LandscapeGenerator wets = new LandscapeGenerator(size_pow2, maxWet, 4, 0.07f);
         rawMap_wet = wets.genMap();
         wets = null;
 
@@ -378,18 +382,134 @@ public class WorldMap
                 map[i][j] = whatBlockLandscape(rawMap_heights[i][j], rawMap_wet[i][j]);
     }
 
+    /**
+     * Отсчёт с верхнего левого угла
+     * |------>X
+     * |
+     * v
+     * Y
+     */
     public Block getBlock(int x, int y)
     {
-        return map[x][y];
+        if(checkCoordsLegal(x, y))
+            return map[x][y];
+        else
+            return null;
     }
 
+    /**
+     * Отсчёт с верхнего левого угла
+     * |------>X
+     * |
+     * v
+     * Y
+     */
     public Block getBlock(sPoint p)
     {
-        return map[p.getX()][p.getY()];
+        if(checkCoordsLegal(p))
+            return map[p.getX()][p.getY()];
+        else
+            return null;
+    }
+
+    public boolean checkCoordsLegal(sPoint p)
+    {
+        int x = p.getX();
+        int y = p.getY();
+        if(0 <= x && x < map.length && 0 <= y && y < map.length)
+            return true;
+        else
+            return false;
+
+    }
+
+    public boolean checkCoordsLegal(int x, int y)
+    {
+        if(0 <= x && x < map.length && 0 <= y && y < map.length)
+            return true;
+        else
+            return false;
     }
 
     public int getMaxSize()
     {
         return map.length;
+    }
+
+    public int toLineNum(sPoint p) throws IllegalArgumentException
+    {
+        int x = p.getX();
+        int y = p.getY();
+        if(checkCoordsLegal(x, y))
+            return y*map.length + x;
+        else
+            throw new IllegalArgumentException("max x is " + (map.length-1) + ", max y is " + (map.length-1) + ". Your x = " + p.getX() + ", your y = " + p.getY());
+    }
+
+    public int getMaxLineNum()
+    {
+        return map.length*map.length - 1;
+    }
+
+    /**
+     * Вернёр список смежности вершин (sPoint), смежных с вершиной v, кроме тех, что содержатся в excluding
+     * Если excluding == null, то вернёт просто список смежности вершин, смежных с v
+     * Если shuffle == true, то список смежности перемешается, тем самым порядок элементов в нём будет рандомным
+     * Если shuffle == false, то вершрины в списке будут в следующем порядке: верхняя, правая, нижняя, левая. Если какой-то вершины нет, то она пропускается
+     * 
+     * @return LinkedList<sPoint> - список смежности
+     */
+    public List<sPoint> getListOfAdjacentVertices(sPoint v, boolean shuffle, SetBit excluding)
+    {
+        List<sPoint> res = new LinkedList<sPoint>();
+        sPoint buff;
+
+        //up
+        buff = v.subY(1);
+        if(checkCoordsLegal(buff) && (excluding == null || excluding.contains(this.toLineNum(buff)) == false))
+            res.add(buff);
+        
+        //right
+        buff = v.addX(1);
+        if(checkCoordsLegal(buff) && (excluding == null || excluding.contains(this.toLineNum(buff)) == false))
+            res.add(buff);
+
+        //down
+        buff = v.addY(1);
+        if(checkCoordsLegal(buff) && (excluding == null || excluding.contains(this.toLineNum(buff)) == false))
+            res.add(buff);
+
+        //left
+        buff = v.subX(1);
+        if(checkCoordsLegal(buff) && (excluding == null || excluding.contains(this.toLineNum(buff)) == false))
+            res.add(buff);
+        
+        if(shuffle)
+            Collections.shuffle(res);
+        return res;
+    }
+
+    public boolean adjacencyMatrix(sPoint i, sPoint j)
+    {
+        if(checkCoordsLegal(i) && checkCoordsLegal(j))
+        {
+            if(i.equals(j))
+                return false;
+            else
+            {
+                int dx = i.getX() - j.getX();
+                dx  = dx > 0?dx:-dx;
+                int dy = i.getY() - j.getY();
+                dy = dy > 0?dy:-dy;
+                if(dy > 1 || dx > 1)
+                    return false;
+                if((dx ^ dy) != 0)
+                    return true;
+                else
+                    return false;
+            }
+        }
+        else
+            return false;
     }
 }

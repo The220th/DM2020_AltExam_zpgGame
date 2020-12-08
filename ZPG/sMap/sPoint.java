@@ -70,4 +70,24 @@ public class sPoint
         sPoint res = new sPoint(x, y);
         return res;
     }
+
+    @Override
+    public boolean equals(Object other)
+    {
+        if(this == other)
+            return true;
+        if(other == null)
+            return false;
+        if(this.getClass() != other.getClass())
+            return false;
+        sPoint otherPoint = (sPoint)other;
+        return this.x == otherPoint.x && this.y == otherPoint.y;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int ez = 32771;
+        return this.x + this.y*ez;
+    }
 }
