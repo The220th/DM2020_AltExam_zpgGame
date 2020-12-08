@@ -3,8 +3,6 @@ package ZPG.MapGenerator;
 import java.lang.*;
 import java.util.*;
 
-import javax.lang.model.util.ElementScanner14;
-
 import java.awt.Color;
 import ZPG.sMap.sPoint;
 
