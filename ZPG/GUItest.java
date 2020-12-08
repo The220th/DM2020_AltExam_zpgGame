@@ -55,8 +55,9 @@ class sComponent extends JComponent
 
         //delete========
         //IDeWaySearcher test = new DepthFirstSearcher(map);
-        IDeWaySearcher test = new BreadthFirstSearcher(map);
-        ll = (LinkedList<sPoint>)test.search(new sPoint(7, 10), new sPoint(475, 308));
+        //IDeWaySearcher test = new BreadthFirstSearcher(map);
+        IDeWaySearcher test = new LiSearcher(map);
+        ll = (LinkedList<sPoint>)test.search(new sPoint(7, 10), new sPoint(637, 781));
         System.out.println("\n\n" + ll + "\n");
         //==============
     }
