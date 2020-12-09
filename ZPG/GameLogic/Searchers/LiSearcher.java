@@ -79,17 +79,19 @@ public class LiSearcher implements IDeWaySearcher
 			
         }
 		System.out.println(distance.get(end));	//time финиша
-        if(v.equals(end))
-        {
-            v = end;
-            do
-            {
-                res.addFirst(v);
-                v = parent.get(v);
-            }while(!v.equals(start));
-            return res;
-        }
-        else
-            return null;
+
+		visited.clear();
+		v = end;
+		do
+		{
+			buff = map.getListOfAdjacentVertices(v, true, visited);
+			for(sPoint b : buff)
+			{
+				if(distance.get(b) != null && distance.get(b) < distance.get(v))
+					v = b;
+			}
+			res.addFirst(v);
+		}while(!v.equals(start));
+		return res;
     }
 }
