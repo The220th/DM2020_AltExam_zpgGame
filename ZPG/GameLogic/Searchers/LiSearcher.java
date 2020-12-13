@@ -9,12 +9,12 @@ import ZPG.GameLogic.SetBit;
 
 public class LiSearcher implements IDeWaySearcher
 {
-    WorldMap map;
-    SetBit visited;
-    Deque<sPoint> deque;
-    HashMap<sPoint, sPoint> parent;
-	HashMap<sPoint, Integer> distance;
-	Integer time;
+    private WorldMap map;
+    private SetBit visited;
+    private Deque<sPoint> deque;
+    private HashMap<sPoint, sPoint> parent;
+	private HashMap<sPoint, Integer> distance;
+	private Integer time;
 
     public LiSearcher(WorldMap worldMap)
     {
@@ -78,7 +78,7 @@ public class LiSearcher implements IDeWaySearcher
 			}
 			
         }
-		System.out.println(distance.get(end));	//time финиша
+		//System.out.println(distance.get(end));	//time финиша
 
 		visited.clear();
 		v = end;
@@ -93,5 +93,11 @@ public class LiSearcher implements IDeWaySearcher
 			res.addFirst(v);
 		}while(!v.equals(start));
 		return res;
+	}
+	
+	@Override
+    public String toString()
+    {
+        return "Wave search algorithm (Lee's algorithm)";
     }
 }

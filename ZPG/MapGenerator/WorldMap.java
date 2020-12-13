@@ -7,6 +7,7 @@ import java.awt.Color;
 import ZPG.sMap.sPoint;
 
 import ZPG.MapGenerator.Block;
+import ZPG.MapGenerator.Town;
 
 import ZPG.MapGenerator.LandscapeGenerator;
 import ZPG.MapGenerator.TownsGenerator;
@@ -42,6 +43,8 @@ public class WorldMap
     private Block townWall;
 
     private Block[][] blocks; //i - height, j - wet
+
+    private List<Town> towns;
 
     private int maxHeight = 9;
     private int maxWet = 9;
@@ -510,6 +513,9 @@ public class WorldMap
         
         TownsGenerator tg = (new TownsGenerator(rawMap_heights, 75)).roadR(1).minR(2);
         tg.addTowns();
+        towns = tg.getTowns();
+        /*for(Town t : this.towns)
+            System.out.println(t);*/
 
         //влажность
         LandscapeGenerator wets = new LandscapeGenerator(size_pow2, maxWet, 4, 0.07f);
@@ -657,12 +663,17 @@ public class WorldMap
 	 *
 	 * Стоимость перехода равна среднему арифметическому стоимости текущей точки и стоимости другой точки
 	 *
-	 * @return int - стоиомсть перехода
+	 * @return double - стоиомсть перехода
 	 */
-	public int getCost(sPoint i, sPoint j)
+	public double getCost(sPoint i, sPoint j)
 	{
-		if(!adjacencyMatrix(i,j))
-			return -1;
-		return ((getBlock(i).getCost() + getBlock(j).getCost()) / 2);
-	}
+		if(!adjacencyMatrix(i, j))
+			return Double.POSITIVE_INFINITY;
+		return ((getBlock(i).getCost() + getBlock(j).getCost()) / 2.0);
+    }
+    
+    public List<Town> getTowns()
+    {
+        return towns;
+    }
 }

@@ -10,6 +10,7 @@ import java.awt.geom.*;
 import ZPG.MapGenerator.WorldMap;
 import ZPG.sMap.sPoint;
 import ZPG.GameLogic.Searchers.*;
+import ZPG.GameLogic.GameHundler;
 
 public class GUItest
 {
@@ -46,6 +47,8 @@ class sComponent extends JComponent
     
     public sComponent(int Sizeble)
     {
+        GameHundler buffH = new GameHundler();
+        buffH.getNearestTown(new sPoint(123, 123));
         sizeble = Sizeble;
         map = new WorldMap(10);
         map.genWorld();
@@ -58,7 +61,7 @@ class sComponent extends JComponent
         //IDeWaySearcher test = new BreadthFirstSearcher(map);
         IDeWaySearcher test = new LiSearcher(map);
         ll = (LinkedList<sPoint>)test.search(new sPoint(7, 10), new sPoint(637, 781));
-        System.out.println("\n\n" + ll + "\n");
+        //System.out.println("\n\n" + ll + "\n");
         //==============
     }
 

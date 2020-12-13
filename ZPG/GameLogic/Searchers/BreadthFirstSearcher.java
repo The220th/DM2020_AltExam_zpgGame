@@ -71,4 +71,11 @@ public class BreadthFirstSearcher implements IDeWaySearcher
         else
             return null;
     }
+    
+	
+	@Override
+    public String toString()
+    {
+        return "Breadth-first search algorithm (BFS)";
+    }
 }

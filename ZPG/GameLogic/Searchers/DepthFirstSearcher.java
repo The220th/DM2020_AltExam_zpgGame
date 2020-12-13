@@ -71,4 +71,10 @@ public class DepthFirstSearcher implements IDeWaySearcher
         else
             return null;
     }
+    
+    @Override
+    public String toString()
+    {
+        return "Depth-first search algorithm (DFS)";
+    }
 }

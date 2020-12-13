@@ -4,6 +4,7 @@ import java.lang.*;
 import java.util.*;
 
 import ZPG.sMap.sPoint;
+import ZPG.MapGenerator.Town;
 
 public class TownsGenerator
 {
@@ -13,6 +14,7 @@ public class TownsGenerator
     private int townWall = 104;
 
     private sPoint[] towns;
+    private int[] towns_r;
     private int maxR = 7;
     private int minR = 1;
     private int minS = 50;
@@ -29,6 +31,7 @@ public class TownsGenerator
     {
         towns = new sPoint[numberTowns];
         map = Map;
+        towns_r = new int[numberTowns];
     }
     
     /**
@@ -117,8 +120,11 @@ public class TownsGenerator
                     printLine(towns[i], towns[j]);
         
         for(int i = 0; i < towns.length; i++)
-            setTown(towns[i]);
-        
+        {
+            int buffR = r.nextInt(maxR - minR+1) + minR;
+            setTown(towns[i], buffR);
+            towns_r[i] = buffR;
+        }
     }
 
     private void setBlock(sPoint p, int value)
@@ -139,11 +145,11 @@ public class TownsGenerator
                 setBlock(new sPoint(i, j), roadBlock);
     }
 
-    private void setTown(sPoint where)
+    private void setTown(sPoint where, int R)
     {
         int j;
         Random r = new Random();
-        int buffR = r.nextInt(maxR - minR+1) + minR;
+        int buffR = R;
         for(j = 1; j < buffR; j++)
         {
             printCircleIn(where, j, townBlock);
@@ -364,7 +370,7 @@ public class TownsGenerator
         //
         placeRoad(new sPoint(x2, y2));
         while(x1 != x2 || y1 != y2) 
-       {
+        {
             placeRoad(new sPoint(x1, y1));
             int error2 = error * 2;
             //
@@ -379,5 +385,15 @@ public class TownsGenerator
                 y1 += signY;
             }
         }
+    }
+
+    public List<Town> getTowns()
+    {
+        List<Town> res = new ArrayList<Town>();
+        for(int i = 0; i < towns.length; ++i)
+        {
+            res.add(new Town(towns[i], towns_r[i]));
+        }
+        return res;
     }
 }
