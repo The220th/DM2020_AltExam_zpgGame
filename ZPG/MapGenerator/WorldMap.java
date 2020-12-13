@@ -15,6 +15,7 @@ import ZPG.GameLogic.SetBit;
 
 public class WorldMap
 {
+    /*
     private Block deepWater;
     private Block subtropicalDesert;
     private Block swamp;
@@ -34,11 +35,13 @@ public class WorldMap
     private Block dryMountains;
     private Block tundra;
     private Block mountains;
-    private Block snow;
+    private Block snow;*/
     private Block road;
     private Block townCenter;
     private Block townBlock;
     private Block townWall;
+
+    private Block[][] blocks; //i - height, j - wet
 
     private int maxHeight = 9;
     private int maxWet = 9;
@@ -60,8 +63,128 @@ public class WorldMap
             for(int li = 0; li < item.length; ++li)
                 item[li] = null;
         
-        
+        blocks = new Block[10][10];
+        //w = 0
+        blocks[0][0] = new Block(0, new Color(63, 63, 252));
+        blocks[1][0] = new Block(0, new Color(245, 243, 175));
+        blocks[2][0] = new Block(0, new Color(244, 230, 161));
+        blocks[3][0] = new Block(0, new Color(244, 230, 161));
+        blocks[4][0] = new Block(0, new Color(210, 199, 138));
+        blocks[5][0] = new Block(0, new Color(238, 177, 88));
+        blocks[6][0] = new Block(0, new Color(150, 109, 76));
+        blocks[7][0] = new Block(0, new Color(184, 155, 142));
+        blocks[8][0] = new Block(0, new Color(95, 95, 95));
+        blocks[9][0] = new Block(0, new Color(108, 108, 108));
 
+        //w = 1
+        blocks[0][1] = new Block(0, new Color(63, 63, 252));
+        blocks[1][1] = new Block(0, new Color(245, 243, 175));
+        blocks[2][1] = new Block(0, new Color(183, 186, 37));
+        blocks[3][1] = new Block(0, new Color(183, 186, 37));
+        blocks[4][1] = new Block(0, new Color(183, 186, 37));
+        blocks[5][1] = new Block(0, new Color(125, 176, 55));
+        blocks[6][1] = new Block(0, new Color(150, 109, 76));
+        blocks[7][1] = new Block(0, new Color(184, 155, 142));
+        blocks[8][1] = new Block(0, new Color(95, 95, 95));
+        blocks[9][1] = new Block(0, new Color(108, 108, 108));
+
+        //w = 2
+        blocks[0][2] = new Block(0, new Color(63, 63, 252));
+        blocks[1][2] = new Block(0, new Color(245, 243, 175));
+        blocks[2][2] = new Block(0, new Color(183, 186, 37));
+        blocks[3][2] = new Block(0, new Color(183, 186, 37));
+        blocks[4][2] = new Block(0, new Color(183, 186, 37));
+        blocks[5][2] = new Block(0, new Color(118, 114, 86));
+        blocks[6][2] = new Block(0, new Color(150, 109, 76));
+        blocks[7][2] = new Block(0, new Color(184, 155, 142));
+        blocks[8][2] = new Block(0, new Color(95, 95, 95));
+        blocks[9][2] = new Block(0, new Color(108, 108, 108));
+        
+        //w = 3
+        blocks[0][3] = new Block(0, new Color(63, 63, 252));
+        blocks[1][3] = new Block(0, new Color(245, 243, 175));
+        blocks[2][3] = new Block(0, new Color(183, 186, 37));
+        blocks[3][3] = new Block(0, new Color(183, 186, 37));
+        blocks[4][3] = new Block(0, new Color(183, 186, 37));
+        blocks[5][3] = new Block(0, new Color(118, 114, 86));
+        blocks[6][3] = new Block(0, new Color(150, 109, 76));
+        blocks[7][3] = new Block(0, new Color(184, 155, 142));
+        blocks[8][3] = new Block(0, new Color(95, 95, 95));
+        blocks[9][3] = new Block(0, new Color(108, 108, 108));
+        
+        //w = 4
+        blocks[0][4] = new Block(0, new Color(44, 44, 178));
+        blocks[1][4] = new Block(0, new Color(63, 63, 252));
+        blocks[2][4] = new Block(0, new Color(125, 176, 55));
+        blocks[3][4] = new Block(0, new Color(125, 176, 55));
+        blocks[4][4] = new Block(0, new Color(125, 176, 55));
+        blocks[5][4] = new Block(0, new Color(118, 114, 86));
+        blocks[6][4] = new Block(0, new Color(150, 109, 76));
+        blocks[7][4] = new Block(0, new Color(0, 80, 0));
+        blocks[8][4] = new Block(0, new Color(95, 95, 95));
+        blocks[9][4] = new Block(0, new Color(108, 108, 108));
+        
+        //w = 5
+        blocks[0][5] = new Block(0, new Color(44, 44, 178));
+        blocks[1][5] = new Block(0, new Color(63, 63, 252));
+        blocks[2][5] = new Block(0, new Color(210, 199, 138));
+        blocks[3][5] = new Block(0, new Color(125, 176, 55));
+        blocks[4][5] = new Block(0, new Color(0, 123, 0));
+        blocks[5][5] = new Block(0, new Color(0, 123, 0));
+        blocks[6][5] = new Block(0, new Color(0, 80, 0));
+        blocks[7][5] = new Block(0, new Color(0, 80, 0));
+        blocks[8][5] = new Block(0, new Color(95, 95, 95));
+        blocks[9][5] = new Block(0, new Color(108, 108, 108));
+        
+        //w = 6
+        blocks[0][6] = new Block(0, new Color(44, 44, 178));
+        blocks[1][6] = new Block(0, new Color(63, 63, 252));
+        blocks[2][6] = new Block(0, new Color(210, 199, 138));
+        blocks[3][6] = new Block(0, new Color(125, 176, 55));
+        blocks[4][6] = new Block(0, new Color(0, 123, 0));
+        blocks[5][6] = new Block(0, new Color(0, 123, 0));
+        blocks[6][6] = new Block(0, new Color(0, 80, 0));
+        blocks[7][6] = new Block(0, new Color(0, 80, 0));
+        blocks[8][6] = new Block(0, new Color(95, 95, 95));
+        blocks[9][6] = new Block(0, new Color(108, 108, 108));
+        
+        //w = 7
+        blocks[0][7] = new Block(0, new Color(44, 44, 178));
+        blocks[1][7] = new Block(0, new Color(63, 63, 252));
+        blocks[2][7] = new Block(0, new Color(210, 199, 138));
+        blocks[3][7] = new Block(0, new Color(125, 176, 55));
+        blocks[4][7] = new Block(0, new Color(0, 123, 0));
+        blocks[5][7] = new Block(0, new Color(0, 123, 0));
+        blocks[6][7] = new Block(0, new Color(50, 79, 50));
+        blocks[7][7] = new Block(0, new Color(50, 79, 50));
+        blocks[8][7] = new Block(0, new Color(95, 95, 95));
+        blocks[9][7] = new Block(0, new Color(108, 108, 108));
+        
+        //w = 8
+        blocks[0][8] = new Block(0, new Color(44, 44, 178));
+        blocks[1][8] = new Block(0, new Color(63, 63, 252));
+        blocks[2][8] = new Block(0, new Color(210, 199, 138));
+        blocks[3][8] = new Block(0, new Color(125, 176, 55));
+        blocks[4][8] = new Block(0, new Color(0, 145, 62));
+        blocks[5][8] = new Block(0, new Color(0, 145, 62));
+        blocks[6][8] = new Block(0, new Color(50, 79, 50));
+        blocks[7][8] = new Block(0, new Color(50, 79, 50));
+        blocks[8][8] = new Block(0, new Color(95, 95, 95));
+        blocks[9][8] = new Block(0, new Color(108, 108, 108));
+        
+        //w = 9
+        blocks[0][9] = new Block(0, new Color(44, 44, 178));
+        blocks[1][9] = new Block(0, new Color(63, 63, 252));
+        blocks[2][9] = new Block(0, new Color(210, 199, 138));
+        blocks[3][9] = new Block(0, new Color(0, 145, 62));
+        blocks[4][9] = new Block(0, new Color(0, 145, 62));
+        blocks[5][9] = new Block(0, new Color(0, 145, 62));
+        blocks[6][9] = new Block(0, new Color(50, 79, 50));
+        blocks[7][9] = new Block(0, new Color(50, 79, 50));
+        blocks[8][9] = new Block(0, new Color(95, 95, 95));
+        blocks[9][9] = new Block(0, new Color(239, 249, 255));
+        
+        /*
         //Глубокая вода
         deepWater = new Block(11, new Color(31, 78, 120));
         //Субтропическая пустыня
@@ -101,7 +224,7 @@ public class WorldMap
         //Горы
         mountains = new Block(20, new Color(58, 56, 56));
         //Снег
-        snow = new Block(28, Color.WHITE);
+        snow = new Block(28, Color.WHITE);*/
         //Дорога
         road = new Block(1, new Color(184, 132, 0));
         //Центр города
@@ -117,6 +240,23 @@ public class WorldMap
         Block b = null;
         if(height != 101 && height != 102 && height != 103 && height != 104 && (wet < 0 || wet > maxWet || height < 0 || height > maxHeight))
             throw new IllegalArgumentException("height = " + height + ", wet = " + wet + ". Max height = " + maxHeight + ", max wet = " + maxWet);
+        
+        if(height <= 9)
+        {
+            b = blocks[height][wet];
+        }
+        else if(height == 101)
+            b = townBlock;
+        else if(height == 102)
+            b = townCenter;
+        else if(height == 103)
+            b = road;
+        else if(height == 104)
+            b = townWall;
+        else
+            System.out.println("Failed succussfully: height = " + height + ", wet = " + wet);
+        return b;
+        /*
         if(height == 0)
         {
             //Глубокая вода
@@ -355,6 +495,7 @@ public class WorldMap
         else
             System.out.println("Failed succussfully: height = " + height + ", wet = " + wet);
         return b;
+        */
     }
 
     public void genWorld()
@@ -363,7 +504,7 @@ public class WorldMap
         int[][] rawMap_wet;
         
         //высоты
-        LandscapeGenerator heights = new LandscapeGenerator(size_pow2, maxHeight, 2, 0.7f);
+        LandscapeGenerator heights = new LandscapeGenerator(size_pow2, maxHeight, 2, 0.5f);
         rawMap_heights = heights.genMap();
         heights = null;
         
