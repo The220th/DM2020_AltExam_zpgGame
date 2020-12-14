@@ -5,6 +5,10 @@ import ZPG.sMap.sPoint;
 import java.util.*;
 import java.lang.*;
 
+import ZPG.GameLogic.Bot;
+import ZPG.GameLogic.Quests.*;
+import ZPG.MapGenerator.WorldMap;
+
 public class Town
 {
     private static int numbers = 1;
@@ -34,6 +38,11 @@ public class Town
     public int getSize()
     {
         return this.size;
+    }
+
+    public IQuest getQuest(WorldMap map, Bot bot)
+    {
+        return new OneItemQuest(bot, map, this);
     }
 
     @Override

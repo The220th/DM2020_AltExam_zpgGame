@@ -2,6 +2,7 @@ package ZPG;
 
 import java.lang.*;
 import java.util.*;
+import java.util.List;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +12,7 @@ import ZPG.MapGenerator.WorldMap;
 import ZPG.sMap.sPoint;
 import ZPG.GameLogic.Searchers.*;
 import ZPG.GameLogic.GameHundler;
+import ZPG.GameLogic.Bot;
 
 public class GUItest
 {
@@ -43,26 +45,24 @@ class sComponent extends JComponent
     private int DEFAULT_HEIGHT;
     private int sizeble;
     private WorldMap map;
-    LinkedList<sPoint> ll;
+    private GameHundler GH;
+
+    private Color botColor;
+    private Color wayColor;
     
     public sComponent(int Sizeble)
     {
-        GameHundler buffH = new GameHundler();
-        buffH.getNearestTown(new sPoint(123, 123));
+        GH = new GameHundler( () -> this.repaint() );
         sizeble = Sizeble;
-        map = new WorldMap(10);
-        map.genWorld();
+        map = GH.getMap();
         
         DEFAULT_WIDTH = map.getMaxSize()*Sizeble;
         DEFAULT_HEIGHT = map.getMaxSize()*Sizeble;
 
-        //delete========
-        //IDeWaySearcher test = new DepthFirstSearcher(map);
-        //IDeWaySearcher test = new BreadthFirstSearcher(map);
-        IDeWaySearcher test = new LiSearcher(map);
-        ll = (LinkedList<sPoint>)test.search(new sPoint(7, 10), new sPoint(637, 781));
-        //System.out.println("\n\n" + ll + "\n");
-        //==============
+        botColor = new Color(200, 0, 255);
+        wayColor = Color.RED;
+
+        GH.BusinessLogic();
     }
 
     public void paintComponent(Graphics gOld)
@@ -74,8 +74,22 @@ class sComponent extends JComponent
             for(int j = 0; j < n; j++)
                 paintBlock(j, i, map.getBlock(i, j).getColor(), g);
         
-        for(sPoint next : ll)
-            paintBlock(next.getX(), next.getY(), Color.RED, g);
+        int x, y;
+        List<Bot> bots = GH.getBots();
+        for(Bot bot : bots)
+        {
+            Deque<sPoint> buffWay = bot.getDeWay();
+            if(buffWay != null)
+            {
+                LinkedList<sPoint> way = (LinkedList<sPoint>)buffWay;
+                for(sPoint p : way)
+                    paintBlock(p.getX(), p.getY(), wayColor, g);
+            }
+
+            x = bot.getCoords().getX();
+            y = bot.getCoords().getY();
+            paintBlock(x, y, botColor, g);
+        }
     }
 
     public Dimension getPreferredSize()

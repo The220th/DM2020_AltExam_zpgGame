@@ -5,18 +5,23 @@ import java.lang.*;
 
 import ZPG.GameLogic.GameHundler;
 import ZPG.GameLogic.Searchers.*;
+import ZPG.MapGenerator.Town;
 import ZPG.sMap.sPoint;
+import ZPG.GameLogic.Quests.*;
 
-public class Bot implements Runnable
+public class Bot
 {
     private static int numbers = 1;
 
     private sPoint coords;
     private String name;
     private int scores;
+
     private Deque<sPoint> deWay;
+    private IQuest currentQuest;
     
     private boolean BUSY;
+    private int ticksDelay;
 
     private IDeWaySearcher searchAlg;
 
@@ -32,7 +37,9 @@ public class Bot implements Runnable
         this.name = "Bot " + numbers;
         this.scores = 0;
         this.BUSY = false;
-        deWay = new LinkedList<sPoint>();
+        this.deWay = null;
+        this.ticksDelay = 0;
+        this.currentQuest = null;
     }
 
     public sPoint getCoords()
@@ -55,29 +62,87 @@ public class Bot implements Runnable
         return "" + this.searchAlg;
     }
 
+    public Deque<sPoint> getDeWay()
+    {
+        return this.deWay;
+    }
+
     private void goTo(sPoint p)
     {
+        ticksDelay += (int)(GH.getMap().getCost(this.coords, p) + 0.5);
         this.coords = p;
     }
 
+    /*
+        Если нет пути, то надо:
+            Путь до ближайшего города, если нет квеста
+            Иначе Взять следующую точку для квеста
+    */
     public void live()
     {
-        if(!BUSY)
+        decrementTicksDelay();
+        if(ticksDelay == 0)
         {
-            if(deWay.isEmpty())
+            if(!BUSY)
             {
-                ...
-            }
-            else
-            {
-                this.goTo(deWay.getFirst());
+                if(deWay == null || deWay.isEmpty())
+                {
+                    if(currentQuest != null)
+                    {
+                        QuestPoint buff = currentQuest.peekNextQuestPoint();
+                        if(buff.getKey() == IQuest.QUEST_ENDED)
+                            currentQuest = null;
+                        else if(buff.getKey() == IQuest.REWARD)
+                        {
+                            this.scores += ((Integer)buff.getValue()).intValue();
+                            currentQuest.getNextQuestPoint();
+                            System.out.println(this);
+                        }
+                        else if(buff.getKey() == IQuest.NEXT_PLACE_TO_VISIT)
+                        {
+                            sPoint target = (sPoint)buff.getValue();
+                            if(this.getCoords().equals(target))
+                                currentQuest.getNextQuestPoint();
+                            else
+                                findDeWay(target);
+                        }
+                    }
+                    else
+                    {
+                        Town town = GH.getNearestTown(this.coords);
+                        if(this.coords.equals(town.getCoords()))
+                        {
+                            currentQuest = town.getQuest(GH.getMap(), this);
+                        }
+                        else
+                        {
+                            findDeWay(town.getCoords());
+                        }
+                    }
+                }
+                else
+                {
+                    this.goTo(deWay.pollFirst());
+                }
             }
         }
     }
 
-    public void findDeWay(sPoint where)
+    private void findDeWay(sPoint where)
     {
-        ...
+        BUSY = true;
+        Runnable task = () ->
+        {
+            deWay = searchAlg.search(this.coords, where);
+            BUSY = false;
+        };
+        new Thread(task).start();
+    }
+
+    private void decrementTicksDelay()
+    {
+        if(ticksDelay > 0)
+            --ticksDelay;
     }
 
     @Override

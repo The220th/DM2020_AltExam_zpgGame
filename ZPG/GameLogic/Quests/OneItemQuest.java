@@ -10,7 +10,7 @@ import ZPG.GameLogic.Quests.IQuest;
 import ZPG.GameLogic.Quests.QuestPoint;
 import ZPG.MapGenerator.Town;
 
-public class OneItemQuest
+public class OneItemQuest implements IQuest
 {
     private int reward;
     private sPoint where;
@@ -23,12 +23,14 @@ public class OneItemQuest
 
     public OneItemQuest(Bot bot, WorldMap map, Town town)
     {
+        if(!town.getCoords().equals(bot.getCoords()))
+            throw new IllegalArgumentException("Boot coordinates != town coordinates (bot = " + bot.getCoords() + ", town = " + town.getCoords() + ")");
         this.town = town;
         this.map = map;
         this.bot = bot;
         q = new LinkedList<QuestPoint>();
 
-        r = (new Random()).nextInt(75);
+        r = (new Random()).nextInt(150);
 
         calcQuest();
 
@@ -36,14 +38,20 @@ public class OneItemQuest
         q.addFirst(new QuestPoint(IQuest.NEXT_PLACE_TO_VISIT, where));
     }
 
-    public Map.Entry<Integer, Object> getNextQuestPoint()
+    public QuestPoint getNextQuestPoint()
     {
-        return null;
+        if(q.isEmpty())
+            return new QuestPoint(IQuest.QUEST_ENDED, null);
+        else
+            return q.pollFirst();
     }
 
-    public Map.Entry<Integer, Object> peekNextQuestPoint()
+    public QuestPoint peekNextQuestPoint()
     {
-        return null;
+        if(q.isEmpty())
+            return new QuestPoint(IQuest.QUEST_ENDED, null);
+        else
+            return q.peekFirst();
     }
 
     private void calcQuest()
@@ -62,6 +70,12 @@ public class OneItemQuest
         }while(!map.checkCoordsLegal(x, y));
 
         where = new sPoint(x, y);
-        reward = where.getDistance(town.getCoords());
+        reward = (int)(where.getDistance(town.getCoords()) + 0.5);
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Need to get to " + where;
     }
 }
