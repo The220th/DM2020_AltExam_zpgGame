@@ -42,7 +42,7 @@ public class Town
 
     public IQuest getQuest(WorldMap map, Bot bot)
     {
-        return new OneItemQuest(bot, map, this);
+        return new TownTravelQuest(bot, map, this);
     }
 
     @Override

@@ -30,7 +30,8 @@ public class GameHundler
         this.currentTick = 0;
         bots = new ArrayList<Bot>();
         //bots.add(new Bot(sPoint.rndPoint(0, 0), new LiSearcher(map)));
-        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new LiSearcher(map)));
+        bots.add(new Bot(new sPoint(0, 0), new LiSearcher(map)));
+        //bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new LiSearcher(map)));
 
         this.print = print;
     }
@@ -50,7 +51,7 @@ public class GameHundler
             
                 try
                 {
-                    Thread.sleep(300);
+                    Thread.sleep(30);
                 }
                 catch(InterruptedException e)
                 {

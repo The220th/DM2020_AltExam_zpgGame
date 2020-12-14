@@ -5,6 +5,9 @@ import java.lang.*;
 
 import ZPG.GameLogic.Quests.*;
 
+/**
+ * Гарантируется, что нельзя изменять
+ */
 public class QuestPoint
 {
     /**
