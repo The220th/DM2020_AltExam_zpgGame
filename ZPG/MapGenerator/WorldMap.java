@@ -68,124 +68,124 @@ public class WorldMap
         
         blocks = new Block[10][10];
         //w = 0
-        blocks[0][0] = new Block(0, new Color(63, 63, 252));
-        blocks[1][0] = new Block(0, new Color(245, 243, 175));
-        blocks[2][0] = new Block(0, new Color(244, 230, 161));
-        blocks[3][0] = new Block(0, new Color(244, 230, 161));
-        blocks[4][0] = new Block(0, new Color(210, 199, 138));
-        blocks[5][0] = new Block(0, new Color(238, 177, 88));
-        blocks[6][0] = new Block(0, new Color(150, 109, 76));
-        blocks[7][0] = new Block(0, new Color(184, 155, 142));
-        blocks[8][0] = new Block(0, new Color(95, 95, 95));
-        blocks[9][0] = new Block(0, new Color(108, 108, 108));
+        blocks[0][0] = new Block(25, new Color(63, 63, 252));
+        blocks[1][0] = new Block(5, new Color(245, 243, 175));
+        blocks[2][0] = new Block(18, new Color(244, 230, 161));
+        blocks[3][0] = new Block(18, new Color(244, 230, 161));
+        blocks[4][0] = new Block(16, new Color(210, 199, 138));
+        blocks[5][0] = new Block(15, new Color(238, 177, 88));
+        blocks[6][0] = new Block(13, new Color(150, 109, 76));
+        blocks[7][0] = new Block(22, new Color(184, 155, 142));
+        blocks[8][0] = new Block(30, new Color(95, 95, 95));
+        blocks[9][0] = new Block(40, new Color(108, 108, 108));
 
         //w = 1
-        blocks[0][1] = new Block(0, new Color(63, 63, 252));
-        blocks[1][1] = new Block(0, new Color(245, 243, 175));
-        blocks[2][1] = new Block(0, new Color(183, 186, 37));
-        blocks[3][1] = new Block(0, new Color(183, 186, 37));
-        blocks[4][1] = new Block(0, new Color(183, 186, 37));
-        blocks[5][1] = new Block(0, new Color(125, 176, 55));
-        blocks[6][1] = new Block(0, new Color(150, 109, 76));
-        blocks[7][1] = new Block(0, new Color(184, 155, 142));
-        blocks[8][1] = new Block(0, new Color(95, 95, 95));
-        blocks[9][1] = new Block(0, new Color(108, 108, 108));
+        blocks[0][1] = new Block(25, new Color(63, 63, 252));
+        blocks[1][1] = new Block(5, new Color(245, 243, 175));
+        blocks[2][1] = new Block(11, new Color(183, 186, 37));
+        blocks[3][1] = new Block(11, new Color(183, 186, 37));
+        blocks[4][1] = new Block(11, new Color(183, 186, 37));
+        blocks[5][1] = new Block(11, new Color(183, 186, 37));
+        blocks[6][1] = new Block(13, new Color(150, 109, 76));
+        blocks[7][1] = new Block(22, new Color(184, 155, 142));
+        blocks[8][1] = new Block(30, new Color(95, 95, 95));
+        blocks[9][1] = new Block(40, new Color(108, 108, 108));
 
         //w = 2
-        blocks[0][2] = new Block(0, new Color(63, 63, 252));
-        blocks[1][2] = new Block(0, new Color(245, 243, 175));
-        blocks[2][2] = new Block(0, new Color(183, 186, 37));
-        blocks[3][2] = new Block(0, new Color(183, 186, 37));
-        blocks[4][2] = new Block(0, new Color(183, 186, 37));
-        blocks[5][2] = new Block(0, new Color(118, 114, 86));
-        blocks[6][2] = new Block(0, new Color(150, 109, 76));
-        blocks[7][2] = new Block(0, new Color(184, 155, 142));
-        blocks[8][2] = new Block(0, new Color(95, 95, 95));
-        blocks[9][2] = new Block(0, new Color(108, 108, 108));
+        blocks[0][2] = new Block(25, new Color(63, 63, 252));
+        blocks[1][2] = new Block(5, new Color(245, 243, 175));
+        blocks[2][2] = new Block(11, new Color(183, 186, 37));
+        blocks[3][2] = new Block(11, new Color(183, 186, 37));
+        blocks[4][2] = new Block(11, new Color(183, 186, 37));
+        blocks[5][2] = new Block(19, new Color(118, 114, 86));
+        blocks[6][2] = new Block(13, new Color(150, 109, 76));
+        blocks[7][2] = new Block(22, new Color(184, 155, 142));
+        blocks[8][2] = new Block(30, new Color(95, 95, 95));
+        blocks[9][2] = new Block(40, new Color(108, 108, 108));
         
         //w = 3
-        blocks[0][3] = new Block(0, new Color(63, 63, 252));
-        blocks[1][3] = new Block(0, new Color(245, 243, 175));
-        blocks[2][3] = new Block(0, new Color(183, 186, 37));
-        blocks[3][3] = new Block(0, new Color(183, 186, 37));
-        blocks[4][3] = new Block(0, new Color(183, 186, 37));
-        blocks[5][3] = new Block(0, new Color(118, 114, 86));
-        blocks[6][3] = new Block(0, new Color(150, 109, 76));
-        blocks[7][3] = new Block(0, new Color(184, 155, 142));
-        blocks[8][3] = new Block(0, new Color(95, 95, 95));
-        blocks[9][3] = new Block(0, new Color(108, 108, 108));
+        blocks[0][3] = new Block(25, new Color(63, 63, 252));
+        blocks[1][3] = new Block(5, new Color(245, 243, 175));
+        blocks[2][3] = new Block(11, new Color(183, 186, 37));
+        blocks[3][3] = new Block(11, new Color(183, 186, 37));
+        blocks[4][3] = new Block(11, new Color(183, 186, 37));
+        blocks[5][3] = new Block(19, new Color(118, 114, 86));
+        blocks[6][3] = new Block(13, new Color(150, 109, 76));
+        blocks[7][3] = new Block(22, new Color(184, 155, 142));
+        blocks[8][3] = new Block(30, new Color(95, 95, 95));
+        blocks[9][3] = new Block(40, new Color(108, 108, 108));
         
         //w = 4
-        blocks[0][4] = new Block(0, new Color(44, 44, 178));
-        blocks[1][4] = new Block(0, new Color(63, 63, 252));
-        blocks[2][4] = new Block(0, new Color(125, 176, 55));
-        blocks[3][4] = new Block(0, new Color(125, 176, 55));
-        blocks[4][4] = new Block(0, new Color(125, 176, 55));
-        blocks[5][4] = new Block(0, new Color(118, 114, 86));
-        blocks[6][4] = new Block(0, new Color(150, 109, 76));
-        blocks[7][4] = new Block(0, new Color(0, 80, 0));
-        blocks[8][4] = new Block(0, new Color(95, 95, 95));
-        blocks[9][4] = new Block(0, new Color(108, 108, 108));
+        blocks[0][4] = new Block(29, new Color(44, 44, 178));
+        blocks[1][4] = new Block(25, new Color(63, 63, 252));
+        blocks[2][4] = new Block(4, new Color(125, 176, 55));
+        blocks[3][4] = new Block(4, new Color(125, 176, 55));
+        blocks[4][4] = new Block(4, new Color(125, 176, 55));
+        blocks[5][4] = new Block(19, new Color(118, 114, 86));
+        blocks[6][4] = new Block(13, new Color(150, 109, 76));
+        blocks[7][4] = new Block(12, new Color(0, 80, 0));
+        blocks[8][4] = new Block(30, new Color(95, 95, 95));
+        blocks[9][4] = new Block(40, new Color(108, 108, 108));
         
         //w = 5
-        blocks[0][5] = new Block(0, new Color(44, 44, 178));
-        blocks[1][5] = new Block(0, new Color(63, 63, 252));
-        blocks[2][5] = new Block(0, new Color(210, 199, 138));
-        blocks[3][5] = new Block(0, new Color(125, 176, 55));
-        blocks[4][5] = new Block(0, new Color(0, 123, 0));
-        blocks[5][5] = new Block(0, new Color(0, 123, 0));
-        blocks[6][5] = new Block(0, new Color(0, 80, 0));
-        blocks[7][5] = new Block(0, new Color(0, 80, 0));
-        blocks[8][5] = new Block(0, new Color(95, 95, 95));
-        blocks[9][5] = new Block(0, new Color(108, 108, 108));
+        blocks[0][5] = new Block(29, new Color(44, 44, 178));
+        blocks[1][5] = new Block(25, new Color(63, 63, 252));
+        blocks[2][5] = new Block(6, new Color(244, 230, 161));
+        blocks[3][5] = new Block(4, new Color(125, 176, 55));
+        blocks[4][5] = new Block(7, new Color(0, 123, 0));
+        blocks[5][5] = new Block(7, new Color(0, 123, 0));
+        blocks[6][5] = new Block(12, new Color(0, 80, 0));
+        blocks[7][5] = new Block(12, new Color(0, 80, 0));
+        blocks[8][5] = new Block(30, new Color(95, 95, 95));
+        blocks[9][5] = new Block(40, new Color(108, 108, 108));
         
         //w = 6
-        blocks[0][6] = new Block(0, new Color(44, 44, 178));
-        blocks[1][6] = new Block(0, new Color(63, 63, 252));
-        blocks[2][6] = new Block(0, new Color(210, 199, 138));
-        blocks[3][6] = new Block(0, new Color(125, 176, 55));
-        blocks[4][6] = new Block(0, new Color(0, 123, 0));
-        blocks[5][6] = new Block(0, new Color(0, 123, 0));
-        blocks[6][6] = new Block(0, new Color(0, 80, 0));
-        blocks[7][6] = new Block(0, new Color(0, 80, 0));
-        blocks[8][6] = new Block(0, new Color(95, 95, 95));
-        blocks[9][6] = new Block(0, new Color(108, 108, 108));
+        blocks[0][6] = new Block(29, new Color(44, 44, 178));
+        blocks[1][6] = new Block(25, new Color(63, 63, 252));
+        blocks[2][6] = new Block(6, new Color(244, 230, 161));
+        blocks[3][6] = new Block(4, new Color(125, 176, 55));
+        blocks[4][6] = new Block(7, new Color(0, 123, 0));
+        blocks[5][6] = new Block(7, new Color(0, 123, 0));
+        blocks[6][6] = new Block(12, new Color(0, 80, 0));
+        blocks[7][6] = new Block(12, new Color(0, 80, 0));
+        blocks[8][6] = new Block(30, new Color(95, 95, 95));
+        blocks[9][6] = new Block(40, new Color(108, 108, 108));
         
         //w = 7
-        blocks[0][7] = new Block(0, new Color(44, 44, 178));
-        blocks[1][7] = new Block(0, new Color(63, 63, 252));
-        blocks[2][7] = new Block(0, new Color(210, 199, 138));
-        blocks[3][7] = new Block(0, new Color(125, 176, 55));
-        blocks[4][7] = new Block(0, new Color(0, 123, 0));
-        blocks[5][7] = new Block(0, new Color(0, 123, 0));
-        blocks[6][7] = new Block(0, new Color(50, 79, 50));
-        blocks[7][7] = new Block(0, new Color(50, 79, 50));
-        blocks[8][7] = new Block(0, new Color(95, 95, 95));
-        blocks[9][7] = new Block(0, new Color(108, 108, 108));
+        blocks[0][7] = new Block(29, new Color(44, 44, 178));
+        blocks[1][7] = new Block(25, new Color(63, 63, 252));
+        blocks[2][7] = new Block(6, new Color(244, 230, 161));
+        blocks[3][7] = new Block(4, new Color(125, 176, 55));
+        blocks[4][7] = new Block(7, new Color(0, 123, 0));
+        blocks[5][7] = new Block(7, new Color(0, 123, 0));
+        blocks[6][7] = new Block(15, new Color(50, 79, 50));
+        blocks[7][7] = new Block(15, new Color(50, 79, 50));
+        blocks[8][7] = new Block(30, new Color(95, 95, 95));
+        blocks[9][7] = new Block(40, new Color(108, 108, 108));
         
         //w = 8
-        blocks[0][8] = new Block(0, new Color(44, 44, 178));
-        blocks[1][8] = new Block(0, new Color(63, 63, 252));
-        blocks[2][8] = new Block(0, new Color(210, 199, 138));
-        blocks[3][8] = new Block(0, new Color(125, 176, 55));
-        blocks[4][8] = new Block(0, new Color(0, 145, 62));
-        blocks[5][8] = new Block(0, new Color(0, 145, 62));
-        blocks[6][8] = new Block(0, new Color(50, 79, 50));
-        blocks[7][8] = new Block(0, new Color(50, 79, 50));
-        blocks[8][8] = new Block(0, new Color(95, 95, 95));
-        blocks[9][8] = new Block(0, new Color(108, 108, 108));
+        blocks[0][8] = new Block(29, new Color(44, 44, 178));
+        blocks[1][8] = new Block(25, new Color(63, 63, 252));
+        blocks[2][8] = new Block(6, new Color(244, 230, 161));
+        blocks[3][8] = new Block(4, new Color(125, 176, 55));
+        blocks[4][8] = new Block(9, new Color(0, 145, 62));
+        blocks[5][8] = new Block(9, new Color(0, 145, 62));
+        blocks[6][8] = new Block(15, new Color(50, 79, 50));
+        blocks[7][8] = new Block(15, new Color(50, 79, 50));
+        blocks[8][8] = new Block(30, new Color(95, 95, 95));
+        blocks[9][8] = new Block(40, new Color(108, 108, 108));
         
         //w = 9
-        blocks[0][9] = new Block(0, new Color(44, 44, 178));
-        blocks[1][9] = new Block(0, new Color(63, 63, 252));
-        blocks[2][9] = new Block(0, new Color(210, 199, 138));
-        blocks[3][9] = new Block(0, new Color(0, 145, 62));
-        blocks[4][9] = new Block(0, new Color(0, 145, 62));
-        blocks[5][9] = new Block(0, new Color(0, 145, 62));
-        blocks[6][9] = new Block(0, new Color(50, 79, 50));
-        blocks[7][9] = new Block(0, new Color(50, 79, 50));
-        blocks[8][9] = new Block(0, new Color(95, 95, 95));
-        blocks[9][9] = new Block(0, new Color(239, 249, 255));
+        blocks[0][9] = new Block(29, new Color(44, 44, 178));
+        blocks[1][9] = new Block(25, new Color(63, 63, 252));
+        blocks[2][9] = new Block(6, new Color(244, 230, 161));
+        blocks[3][9] = new Block(9, new Color(0, 145, 62));
+        blocks[4][9] = new Block(9, new Color(0, 145, 62));
+        blocks[5][9] = new Block(9, new Color(0, 145, 62));
+        blocks[6][9] = new Block(15, new Color(50, 79, 50));
+        blocks[7][9] = new Block(15, new Color(50, 79, 50));
+        blocks[8][9] = new Block(30, new Color(95, 95, 95));
+        blocks[9][9] = new Block(50, new Color(239, 249, 255));
         
         /*
         //Глубокая вода
@@ -235,7 +235,7 @@ public class WorldMap
         //Блоки города
         townBlock = new Block(2, new Color(26, 24, 22));
         //Стены города
-        townWall = new Block(44, new Color(56, 56, 56));
+        townWall = new Block(24, new Color(56, 56, 56));
     }
 
     public Block whatBlockLandscape(int height, int wet) throws IllegalArgumentException
@@ -669,7 +669,7 @@ public class WorldMap
 	{
 		if(!adjacencyMatrix(i, j))
 			return Double.POSITIVE_INFINITY;
-		return ((getBlock(i).getCost() + getBlock(j).getCost()) / 2.0);
+		return ((getBlock(i).getCost() + getBlock(j).getCost()) / 2.0)/1.5;
     }
     
     public List<Town> getTowns()
