@@ -39,8 +39,7 @@ public class TownTravelQuest implements IQuest
         List<Town> towns = map.getTowns();
         number = r.nextInt(towns.size()) + 1;
         int rTown;
-
-        number = 2;
+        
         do
         {
             rTown = r.nextInt(towns.size());
