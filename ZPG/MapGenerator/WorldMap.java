@@ -235,7 +235,7 @@ public class WorldMap
         //Блоки города
         townBlock = new Block(2, new Color(26, 24, 22));
         //Стены города
-        townWall = new Block(44, new Color(255, 0, 0));
+        townWall = new Block(44, new Color(56, 56, 56));
     }
 
     public Block whatBlockLandscape(int height, int wet) throws IllegalArgumentException

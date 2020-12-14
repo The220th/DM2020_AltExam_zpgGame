@@ -30,7 +30,7 @@ public class OneItemQuest implements IQuest
         this.bot = bot;
         q = new LinkedList<QuestPoint>();
 
-        r = (new Random()).nextInt(150);
+        r = (new Random()).nextInt(150)+1;
 
         calcQuest();
 

@@ -30,7 +30,7 @@ public class GameHundler
         this.currentTick = 0;
         bots = new ArrayList<Bot>();
         //bots.add(new Bot(sPoint.rndPoint(0, 0), new LiSearcher(map)));
-        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()), new LiSearcher(map)));
+        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new LiSearcher(map)));
 
         this.print = print;
     }

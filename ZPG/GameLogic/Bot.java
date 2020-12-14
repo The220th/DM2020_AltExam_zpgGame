@@ -40,6 +40,7 @@ public class Bot
         this.deWay = null;
         this.ticksDelay = 0;
         this.currentQuest = null;
+		++numbers;
     }
 
     public sPoint getCoords()
