@@ -22,10 +22,6 @@ public class TownsGenerator
     private int roadR = 1;
 
     int[][] map;
-    public static void main(String[] args)
-    {
-
-    }
 
     public TownsGenerator(int[][] Map, int numberTowns)
     {
@@ -114,6 +110,8 @@ public class TownsGenerator
         genTownsCoordinates();
         
         boolean[][] adjacencyMatrix = calculateRoads();
+        modifyRoads(adjacencyMatrix);
+
         for(int i = 0; i < towns.length-1; i++)
             for(int j = i+1; j < towns.length; j++)
                 if(adjacencyMatrix[i][j] == true)
@@ -394,6 +392,52 @@ public class TownsGenerator
         {
             res.add(new Town(towns[i], towns_r[i]));
         }
+        return res;
+    }
+
+    private void modifyRoads(boolean[][] adjacencyMatrix)
+    {
+        Random r = new Random();
+
+        int roadsNum, buff;
+
+        for(int i = 0; i < towns.length; ++i)
+        {
+            roadsNum = r.nextInt(5)+1;
+            buff = countRoads(i, adjacencyMatrix);
+            if(buff < roadsNum)
+            {
+                buff = roadsNum-buff;
+                double min;
+                int nmin;
+                int j;
+                for(int gi = 0; gi < buff; ++gi)
+                {
+                    nmin = -1;
+                    min = Double.POSITIVE_INFINITY;
+                    for(j = 0; j < towns.length; ++j)
+                    {
+                        if(i != j && adjacencyMatrix[i][j] == false && min > towns[i].getDistance(towns[j]))
+                        {
+                            min = towns[i].getDistance(towns[j]);
+                            nmin = j;
+                        }
+                    }
+                    adjacencyMatrix[i][nmin] = true;
+                    adjacencyMatrix[nmin][i] = true;
+                }
+
+            }
+        }
+    }
+
+    private int countRoads(int town, boolean[][] adjacencyMatrix)
+    {
+        int res = 0;
+
+        for(int i = 0; i < towns.length; ++i)
+            if(adjacencyMatrix[town][i] == true)
+                ++res;
         return res;
     }
 }
