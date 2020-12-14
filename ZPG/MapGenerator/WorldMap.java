@@ -235,7 +235,7 @@ public class WorldMap
         //Блоки города
         townBlock = new Block(2, new Color(26, 24, 22));
         //Стены города
-        townWall = new Block(44, new Color(56, 56, 56));
+        townWall = new Block(44, new Color(255, 0, 0));
     }
 
     public Block whatBlockLandscape(int height, int wet) throws IllegalArgumentException
@@ -524,7 +524,7 @@ public class WorldMap
 
         for(int i = 0; i < map.length; ++i)
             for(int j = 0; j < map[i].length; ++j)
-                map[i][j] = whatBlockLandscape(rawMap_heights[i][j], rawMap_wet[i][j]);
+                map[i][j] = whatBlockLandscape(rawMap_heights[j][i], rawMap_wet[i][j]);
     }
 
     /**
@@ -638,7 +638,7 @@ public class WorldMap
     {
         if(checkCoordsLegal(i) && checkCoordsLegal(j))
         {
-            if(i.equals(j))
+            if(i.equals(j))	//here LiSearcher brakes
                 return false;
             else
             {

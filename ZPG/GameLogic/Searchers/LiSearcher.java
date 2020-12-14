@@ -82,6 +82,7 @@ public class LiSearcher implements IDeWaySearcher
 
 		visited.clear();
 		v = end;
+		res.addFirst(end);
 		do
 		{
 			buff = map.getListOfAdjacentVertices(v, true, visited);
@@ -90,7 +91,8 @@ public class LiSearcher implements IDeWaySearcher
 				if(distance.get(b) != null && distance.get(b) < distance.get(v))
 					v = b;
 			}
-			res.addFirst(v);
+			if(!v.equals(start))
+				res.addFirst(v);
 		}while(!v.equals(start));
 		return res;
 	}

@@ -72,7 +72,7 @@ class sComponent extends JComponent
         int n = map.getMaxSize();
         for(int i = 0; i < n; i++)
             for(int j = 0; j < n; j++)
-                paintBlock(j, i, map.getBlock(i, j).getColor(), g);
+                paintBlock(i, j, map.getBlock(i, j).getColor(), g);
         
         int x, y;
         List<Bot> bots = GH.getBots();
