@@ -20,6 +20,7 @@ public class TownsGenerator
     private int minS = 50;
     private int maxS = 1024;
     private int roadR = 1;
+    private int maxRoadsForOneTown;
 
     int[][] map;
 
@@ -28,6 +29,7 @@ public class TownsGenerator
         towns = new sPoint[numberTowns];
         map = Map;
         towns_r = new int[numberTowns];
+        maxRoadsForOneTown = 4;
     }
     
     /**
@@ -146,7 +148,6 @@ public class TownsGenerator
     private void setTown(sPoint where, int R)
     {
         int j;
-        Random r = new Random();
         int buffR = R;
         for(j = 1; j < buffR; j++)
         {
@@ -403,7 +404,7 @@ public class TownsGenerator
 
         for(int i = 0; i < towns.length; ++i)
         {
-            roadsNum = r.nextInt(5)+1;
+            roadsNum = r.nextInt(maxRoadsForOneTown)+1;
             buff = countRoads(i, adjacencyMatrix);
             if(buff < roadsNum)
             {

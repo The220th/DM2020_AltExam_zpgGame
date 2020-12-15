@@ -9,6 +9,8 @@ import ZPG.GameLogic.SetBit;
 
 public class DepthFirstSearcher implements IDeWaySearcher
 {
+    private static int numbers = 0;
+
     WorldMap map;
     SetBit visited;
     Stack<sPoint> stack;
@@ -17,6 +19,7 @@ public class DepthFirstSearcher implements IDeWaySearcher
     public DepthFirstSearcher(WorldMap worldMap)
     {
         this.map = worldMap;
+        ++numbers;
     }
 
     public Deque<sPoint> search(sPoint start, sPoint end) throws IllegalArgumentException
@@ -66,15 +69,32 @@ public class DepthFirstSearcher implements IDeWaySearcher
                 res.addFirst(v);
                 v = parent.get(v);
             }while(!v.equals(start));
+			
+			visited = null;
+			stack = null;
+			parent.clear();
+			parent = null;
             return res;
         }
         else
+		{
+			visited = null;
+			stack = null;
+			parent.clear();
+			parent = null;
+			
             return null;
+		}
     }
     
     @Override
     public String toString()
     {
         return "Depth-first search algorithm (DFS)";
+    }
+
+    public static int getNums()
+    {
+        return numbers;
     }
 }

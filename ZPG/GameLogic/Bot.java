@@ -27,6 +27,8 @@ public class Bot
 
     private static GameHundler GH = null;
 
+    private Object Lock4Print;
+
     public Bot(sPoint coordinates, IDeWaySearcher searchAlgorithm)
     {
         if(GH == null)
@@ -40,7 +42,9 @@ public class Bot
         this.deWay = null;
         this.ticksDelay = 0;
         this.currentQuest = null;
-		++numbers;
+        ++numbers;
+        
+        Lock4Print = new Object();
     }
 
     public sPoint getCoords()
@@ -123,7 +127,10 @@ public class Bot
                 }
                 else
                 {
-                    this.goTo(deWay.pollFirst());
+                    synchronized(Lock4Print)
+                    {
+                        this.goTo(deWay.pollFirst());
+                    }
                 }
             }
         }
@@ -150,5 +157,10 @@ public class Bot
     public String toString()
     {
         return this.name + " uses " + searchAlg + ", his scores " + scores + " and its coordinates = " + coords;
+    }
+
+    public Object getLock4Print()
+    {
+        return Lock4Print;
     }
 }

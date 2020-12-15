@@ -52,6 +52,9 @@ public class TownTravelQuest implements IQuest
         q.addFirst(new QuestPoint(IQuest.REWARD, Integer.valueOf((this.totalReward))));
         for(int i = 0; i < townsToVisit.size(); ++i)
             q.addFirst(new QuestPoint(IQuest.NEXT_PLACE_TO_VISIT, townsToVisit.get(i).getCoords()));
+		
+		
+		townsToVisit = null;
     }
 
     public QuestPoint getNextQuestPoint()
@@ -83,6 +86,7 @@ public class TownTravelQuest implements IQuest
         else
             reward = (int)(where.getDistance(town.getCoords()) + 0.5);
         totalReward += reward;
+		
     }
 
     @Override

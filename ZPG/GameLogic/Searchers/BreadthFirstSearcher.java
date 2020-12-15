@@ -66,10 +66,20 @@ public class BreadthFirstSearcher implements IDeWaySearcher
                 res.addFirst(v);
                 v = parent.get(v);
             }while(!v.equals(start));
+			parent.clear();
+			parent = null;
+			visited = null;
+			q = null;
             return res;
         }
         else
+		{
+			parent.clear();
+			parent = null;
+			visited = null;
+			q = null;
             return null;
+		}
     }
     
 	

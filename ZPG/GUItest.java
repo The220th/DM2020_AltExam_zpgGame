@@ -41,6 +41,7 @@ class sFrame extends JFrame
 
 class sComponent extends JComponent
 {
+
     private int DEFAULT_WIDTH;
     private int DEFAULT_HEIGHT;
     private int sizeble;
@@ -67,29 +68,36 @@ class sComponent extends JComponent
 
     public void paintComponent(Graphics gOld)
     {
-        Graphics2D g = (Graphics2D)gOld;
-        
-        int n = map.getMaxSize();
-        for(int i = 0; i < n; i++)
-            for(int j = 0; j < n; j++)
-                paintBlock(i, j, map.getBlock(i, j).getColor(), g);
-        
-        int x, y;
-        List<Bot> bots = GH.getBots();
-        for(Bot bot : bots)
-        {
-            Deque<sPoint> buffWay = bot.getDeWay();
-            if(buffWay != null)
+            Graphics2D g = (Graphics2D)gOld;
+            
+            int n = map.getMaxSize();
+            for(int i = 0; i < n; i++)
+                for(int j = 0; j < n; j++)
+                    paintBlock(i, j, map.getBlock(i, j).getColor(), g);
+            
+            int x, y;
+            List<Bot> bots = GH.getBots();
+            for(Bot bot : bots)
             {
-                LinkedList<sPoint> way = (LinkedList<sPoint>)buffWay;
-                for(sPoint p : way)
-                    paintBlock(p.getX(), p.getY(), wayColor, g);
+                if(false)
+                {
+                    Deque<sPoint> buffWay = bot.getDeWay();
+                    if(buffWay != null)
+                    {
+                        Object buffLock = bot.getLock4Print();
+                        LinkedList<sPoint> way;
+                        synchronized(buffLock)
+                        {
+                            way = new LinkedList<sPoint>((LinkedList<sPoint>)buffWay);
+                        }
+                        for(sPoint p : way)
+                            paintBlock(p.getX(), p.getY(), wayColor, g);
+                    }
+                }
+                x = bot.getCoords().getX();
+                y = bot.getCoords().getY();
+                paintBlock(x, y, botColor, g);
             }
-
-            x = bot.getCoords().getX();
-            y = bot.getCoords().getY();
-            paintBlock(x, y, botColor, g);
-        }
     }
 
     public Dimension getPreferredSize()

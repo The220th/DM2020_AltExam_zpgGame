@@ -42,7 +42,31 @@ public class Town
 
     public IQuest getQuest(WorldMap map, Bot bot)
     {
-        return new TownTravelQuest(bot, map, this);
+        Random r = new Random();
+        int what = r.nextInt(2);
+        IQuest res = null;
+        switch(what)
+        {
+            case 0:
+                res = new OneItemQuest(bot, map, this);
+                break;
+            case 1:
+                res = new TownTravelQuest(bot, map, this);
+                break;
+            case 2:
+                res = null;
+                break;
+            case 3:
+                res = null;
+                break;
+            case 4:
+                res = null;
+                break;
+            default:
+                System.out.println("Failed successfully in getQuest");
+                break;
+        }
+        return res;
     }
 
     @Override

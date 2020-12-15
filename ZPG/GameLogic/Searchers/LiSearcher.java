@@ -94,6 +94,14 @@ public class LiSearcher implements IDeWaySearcher
 			if(!v.equals(start))
 				res.addFirst(v);
 		}while(!v.equals(start));
+		
+		parent.clear();
+		parent = null;
+		distance.clear();
+		distance = null;
+		deque = null;
+		visited = null;
+		
 		return res;
 	}
 	
