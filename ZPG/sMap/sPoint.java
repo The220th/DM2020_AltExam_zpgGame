@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * Должно гарантироваться, что изменить точку нельзя
  */
-public class sPoint
+public class sPoint implements Comparable<sPoint>
 {
     private int x;
     private int y;
@@ -94,5 +94,11 @@ public class sPoint
     {
         int ez = 32771;
         return this.x + this.y*ez;
+    }
+
+    @Override
+    public int compareTo(sPoint other)
+    {
+        return this.hashCode() - other.hashCode();
     }
 }

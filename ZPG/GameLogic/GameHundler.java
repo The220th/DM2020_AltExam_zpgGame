@@ -43,7 +43,7 @@ public class GameHundler
         this.delayToPrint = 1000;
 
         this.bots = new ArrayList<Bot>();
-        for(int i = 0; i < 100; ++i)
+        for(int i = 0; i < 1; ++i)
             bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), chooseSearchAlg()));
 
         this.print = print;
@@ -52,7 +52,8 @@ public class GameHundler
     private IDeWaySearcher chooseSearchAlg()
     {
         Random r = new Random();
-        int what = r.nextInt(3);
+        //int what = r.nextInt(4);
+        int what = 3;
         IDeWaySearcher res = null;
         switch(what)
         {
@@ -69,7 +70,7 @@ public class GameHundler
                 res = new LiSearcher(this.map);
                 break;
             case 3:
-                res = null;
+                res = new /*Dijkstra(this.map);*/ DijkstraSearcher(this.map);
                 break;
             case 4:
                 res = null;

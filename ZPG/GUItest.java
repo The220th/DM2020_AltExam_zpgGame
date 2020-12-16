@@ -79,7 +79,7 @@ class sComponent extends JComponent
             List<Bot> bots = GH.getBots();
             for(Bot bot : bots)
             {
-                if(false)
+                if(true)
                 {
                     Deque<sPoint> buffWay = bot.getDeWay();
                     if(buffWay != null)
@@ -94,6 +94,14 @@ class sComponent extends JComponent
                             paintBlock(p.getX(), p.getY(), wayColor, g);
                     }
                 }
+
+                /*LinkedList<sPoint> wayyy = ((DijkstraSearcher)bot.searchAlg).get2See();
+                if(wayyy != null)
+                {
+                    for(sPoint p : wayyy)
+                    paintBlock(p.getX(), p.getY(), Color.ORANGE, g);
+                }*/
+
                 x = bot.getCoords().getX();
                 y = bot.getCoords().getY();
                 paintBlock(x, y, botColor, g);

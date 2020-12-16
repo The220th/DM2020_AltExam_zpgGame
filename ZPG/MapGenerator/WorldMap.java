@@ -667,6 +667,8 @@ public class WorldMap
 	 */
 	public double getCost(sPoint i, sPoint j)
 	{
+        if(i.equals(j))
+            return 0.0;
         if(!adjacencyMatrix(i, j))
         {
             System.out.println("\n\nRETURNED inf\n");
