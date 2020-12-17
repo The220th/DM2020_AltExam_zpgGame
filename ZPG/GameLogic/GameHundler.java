@@ -2,8 +2,6 @@ package ZPG.GameLogic;
 
 import java.util.*;
 
-import javax.lang.model.util.ElementScanner14;
-
 import java.lang.*;
 
 import ZPG.MapGenerator.WorldMap;
@@ -43,8 +41,15 @@ public class GameHundler
         this.delayToPrint = 1000;
 
         this.bots = new ArrayList<Bot>();
-        for(int i = 0; i < 1; ++i)
-            bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), chooseSearchAlg()));
+        /*for(int i = 0; i < 1; ++i)
+            bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), chooseSearchAlg()));*/
+
+        sPoint buff = new sPoint(0, 0); //delete below
+        bots.add(new Bot(buff, new DijkstraSearcher(this.map)));
+        bots.add(new Bot(buff, new Dijkstra(this.map)));
+        bots.add(new Bot(buff, new newDijkstra(this.map)));
+        bots.add(new Bot(buff, new LiSearcher(this.map)));
+        bots.add(new Bot(buff, new BreadthFirstSearcher(this.map)));
 
         this.print = print;
     }

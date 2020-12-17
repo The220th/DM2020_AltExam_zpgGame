@@ -43,7 +43,8 @@ public class Town
     public IQuest getQuest(WorldMap map, Bot bot)
     {
         Random r = new Random();
-        int what = r.nextInt(2);
+        //int what = r.nextInt(2);
+        int what = 0;
         IQuest res = null;
         switch(what)
         {
@@ -67,6 +68,13 @@ public class Town
                 break;
         }
         return res;
+    }
+
+    public void getQuestToAll(WorldMap map, List<Bot> bots)
+    {
+        IQuest res = new TownTravelQuest(bots.get(0), map, this);
+        for(Bot bot : bots)
+            bot.currentQuest = res;
     }
 
     @Override

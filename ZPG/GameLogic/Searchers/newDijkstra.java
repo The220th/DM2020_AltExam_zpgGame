@@ -7,7 +7,7 @@ import ZPG.sMap.sPoint;
 import ZPG.GameLogic.Searchers.IDeWaySearcher;
 import ZPG.GameLogic.SetBit;
 
-public class Dijkstra implements IDeWaySearcher
+public class newDijkstra implements IDeWaySearcher
 {
     private WorldMap map;
     private SetBit visited;
@@ -16,7 +16,7 @@ public class Dijkstra implements IDeWaySearcher
     private HashMap<sPoint, sPoint> parent;
 	private HashMap<sPoint, Double> distance;
 
-    public Dijkstra(WorldMap worldMap)
+    public newDijkstra(WorldMap worldMap)
     {
         this.map = worldMap;
     }
@@ -30,8 +30,8 @@ public class Dijkstra implements IDeWaySearcher
         if(start.equals(end))
 			return res;
 
-        sPoint v;
-        sPoint u;
+		sPoint v, u, buffPoint;
+		int toDel, bIndex;
 		boolean ENDED;
 		Double buffDouble;
         List<sPoint> buff = new LinkedList<sPoint>();
@@ -41,6 +41,8 @@ public class Dijkstra implements IDeWaySearcher
         parent = new HashMap<sPoint, sPoint>();
         distance = new HashMap<sPoint, Double>();
 
+		ListIterator<sPoint> it;
+
 		vertices.addLast(start);
 		verticesBit.add(map.toLineNum(start));
         parent.put(start, null);
@@ -48,23 +50,40 @@ public class Dijkstra implements IDeWaySearcher
 
         ENDED = false;
 		v = start;
-		/*System.out.println("[Slowpoke] I have to get to " + end + ". My position is " + start);
+		/*System.out.println("[FastAF] I have to get to " + end + ". My position is " + start);
 		long startTime = System.currentTimeMillis();*/
         while(!ENDED)
         {
 			while(!vertices.isEmpty())
 			{
-				u = vertices.get(0);
+				u = null;
 				buffDouble = Double.MAX_VALUE;
-				for (sPoint point : vertices) 
+				it = vertices.listIterator();
+				bIndex = -1;
+				toDel = -1;
+				while(it.hasNext())
 				{
-					if(distance.get(point) < buffDouble)
+					++bIndex;
+					buffPoint = it.next();
+					if(distance.get(buffPoint) < buffDouble)
 					{
-						buffDouble = distance.get(point);
-						u = point;
+						buffDouble = distance.get(buffPoint);
+						u = buffPoint;
+						toDel = bIndex;
 					}
 				}
-				vertices.remove(vertices.indexOf(u));
+				/*for(int buffIndex = 0; buffIndex < vectices.size(); ++buffIndex) 
+				{
+					buffPoint = vertices.get(buffIndex);
+					if(distance.get(buffPoint) < buffDouble)
+					{
+						buffDouble = distance.get(buffPoint);
+						u = buffPoint;
+						toDel = buffIndex;
+					}
+				}*/
+
+				vertices.remove(toDel);
 				verticesBit.remove(map.toLineNum(u));
 				visited.add(map.toLineNum(u));
 				if(u.equals(end))
@@ -102,10 +121,12 @@ public class Dijkstra implements IDeWaySearcher
 		{
 			res.addFirst(v);
 			v = parent.get(v);
-		}while(!v.equals(start));
+		}while(v != null && !v.equals(start));
 		/*long endTime = System.currentTimeMillis();
-		System.out.println("[Slowpoke] Moving out! It took " + (endTime-startTime) + " ms.");*/
+		System.out.println("[FastAF] Moving out! It took " + (endTime-startTime) + " ms.");*/
 		//Clean Day
+		parent.clear();
+		distance.clear();
 		parent = null;
 		distance = null;
 		vertices = null;
@@ -117,6 +138,6 @@ public class Dijkstra implements IDeWaySearcher
 	@Override
     public String toString()
     {
-        return "Dijkstra 1.0 Search algorithm";
+        return "Dijkstra 2.0 Search algorithm";
     }
 }

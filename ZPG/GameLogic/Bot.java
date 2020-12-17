@@ -18,7 +18,7 @@ public class Bot
     private int scores;
 
     private Deque<sPoint> deWay;
-    private IQuest currentQuest;
+    public IQuest currentQuest; //Вернуть private
     
     private boolean BUSY;
     private int ticksDelay;
@@ -156,7 +156,7 @@ public class Bot
     @Override
     public String toString()
     {
-        return this.name + " uses " + searchAlg + ", his scores " + scores + " and its coordinates = " + coords;
+        return "\t" + this.name + " uses " + searchAlg + ", his scores " + scores + " and its coordinates = " + coords;
     }
 
     public Object getLock4Print()

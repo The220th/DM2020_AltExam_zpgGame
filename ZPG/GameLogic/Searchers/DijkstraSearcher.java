@@ -34,7 +34,7 @@ public class DijkstraSearcher implements IDeWaySearcher
         
         Deque<sPoint> res = new LinkedList<sPoint>();
         if(start.equals(end))
-            return res;
+			return res;
 
 		List<sPoint> buff = null;
 		ListIterator<sPoint> iter = null;
@@ -48,6 +48,8 @@ public class DijkstraSearcher implements IDeWaySearcher
 		inGraph.add(map.toLineNum(start));
 		toSee.add(start);
 		dist.put(start, Double.valueOf(0.0));
+		/*System.out.println("[KOTALEX] I have to get to " + end + ". My position is " + start);
+		long startTime = System.currentTimeMillis();*/
 		while(true)
 		{
 			synchronized(this)
@@ -94,7 +96,8 @@ public class DijkstraSearcher implements IDeWaySearcher
 			res.addFirst(v);
 			v = parent.get(v);
 		}while(!v.equals(start));
-		
+		/*long endTime = System.currentTimeMillis();
+		System.out.println("[KOTALEX] Moving out! It took " + (endTime-startTime) + " ms.");*/
 		inGraph = null;
 		toSee = null;
 		parent.clear();
