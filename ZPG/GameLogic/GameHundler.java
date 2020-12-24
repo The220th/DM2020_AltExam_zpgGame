@@ -50,6 +50,7 @@ public class GameHundler
         bots.add(new Bot(buff, new newDijkstra(this.map)));
         bots.add(new Bot(buff, new LiSearcher(this.map)));
         bots.add(new Bot(buff, new BreadthFirstSearcher(this.map)));
+        bots.add(new Bot(buff, new AStarSearcher(this.map)));
 
         this.print = print;
     }

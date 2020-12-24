@@ -7,16 +7,21 @@ import ZPG.sMap.sPoint;
 import ZPG.GameLogic.Searchers.IDeWaySearcher;
 import ZPG.GameLogic.SetBit;
 
-public class newDijkstra implements IDeWaySearcher
+public class AStarSearcher implements IDeWaySearcher
 {
     private WorldMap map;
-    private SetBit visited;
-    private SetBit verticesBit;
-    private LinkedList<sPoint> vertices;
-    private HashMap<sPoint, sPoint> parent;
+	private SetBit visited;
+	private SetBit verticesBit;
+	private LinkedList<sPoint> vertices;
+	private HashMap<sPoint, sPoint> parent;
+	private HashMap<sPoint, Double> f_func;
 	private HashMap<sPoint, Double> distance;
-
-    public newDijkstra(WorldMap worldMap)
+	/*
+	h(v) = getDistance(v, end);
+	g(v) = parent's distance + distance to v
+	f(v) = g(v) + h(v)
+	*/
+    public AStarSearcher(WorldMap worldMap)
     {
         this.map = worldMap;
     }
@@ -34,28 +39,30 @@ public class newDijkstra implements IDeWaySearcher
 
 		sPoint v, u, buffPoint;
 		int toDel, bIndex;
-		boolean ENDED;
 		Double buffDouble;
-        List<sPoint> buff = new LinkedList<sPoint>();
+		boolean ENDED;
+		List<sPoint> buff = new LinkedList<sPoint>();
         vertices = new LinkedList<sPoint>();
-        visited = new SetBit(map.getMaxLineNum()+1);
-        verticesBit = new SetBit(map.getMaxLineNum()+1);
+		visited = new SetBit(map.getMaxLineNum()+1);
+		verticesBit = new SetBit(map.getMaxLineNum()+1);
         parent = new HashMap<sPoint, sPoint>();
-        distance = new HashMap<sPoint, Double>();
-
+		f_func = new HashMap<sPoint, Double>();
+		distance = new HashMap<sPoint, Double>();
+		
 		ListIterator<sPoint> it;
 
 		vertices.addLast(start);
 		verticesBit.add(map.toLineNum(start));
         parent.put(start, null);
+		f_func.put(start, 0.0);
 		distance.put(start, 0.0);
 
-        ENDED = false;
+		ENDED = false;
 		v = start;
-		/*System.out.println("[FastAF] I have to get to " + end + ". My position is " + start);
+		/*System.out.println("[A*] I have to get to " + end + ". My position is " + start);
 		long startTime = System.currentTimeMillis();*/
-        while(!ENDED)
-        {
+		while(!ENDED)
+		{
 			while(!vertices.isEmpty())
 			{
 				u = null;
@@ -67,24 +74,13 @@ public class newDijkstra implements IDeWaySearcher
 				{
 					++bIndex;
 					buffPoint = it.next();
-					if(distance.get(buffPoint) < buffDouble)
+					if(f_func.get(buffPoint) < buffDouble)
 					{
-						buffDouble = distance.get(buffPoint);
+						buffDouble = f_func.get(buffPoint);
 						u = buffPoint;
 						toDel = bIndex;
 					}
 				}
-				/*for(int buffIndex = 0; buffIndex < vectices.size(); ++buffIndex) 
-				{
-					buffPoint = vertices.get(buffIndex);
-					if(distance.get(buffPoint) < buffDouble)
-					{
-						buffDouble = distance.get(buffPoint);
-						u = buffPoint;
-						toDel = buffIndex;
-					}
-				}*/
-
 				vertices.remove(toDel);
 				verticesBit.remove(map.toLineNum(u));
 				visited.add(map.toLineNum(u));
@@ -102,21 +98,16 @@ public class newDijkstra implements IDeWaySearcher
 						vertices.addLast(b);
 						verticesBit.add(map.toLineNum(b));
 					}
-					buffDouble = distance.get(u) + map.getCost(b, u);
-					if(distance.get(b) == null)
+					buffDouble = f_func.get(u) + map.getCost(b, u) + b.getDistance(end);
+					if(f_func.get(b) == null || f_func.get(b) > buffDouble)
 					{
 						parent.put(b, u);
-						distance.put(b, buffDouble);
-					}
-					else if(distance.get(b) > buffDouble)
-					{
-						parent.put(b, u);
-						distance.put(b, buffDouble);
+						distance.put(b, distance.get(u) + map.getCost(b, u));
+						f_func.put(b, buffDouble);
 					}
 				}
 			}
-			
-        }
+		}
 
 		v = end;
 		do
@@ -125,21 +116,25 @@ public class newDijkstra implements IDeWaySearcher
 			v = parent.get(v);
 		}while(v != null && !v.equals(start));
 		/*long endTime = System.currentTimeMillis();
-		System.out.println("[FastAF] Moving out! It took " + (endTime-startTime) + " ms.");*/
+		System.out.println("[A*] Moving out! It took " + (endTime-startTime) + " ms.");*/
 		//Clean Day
 		parent.clear();
+		distance.clear();
+		vertices.clear();
+		f_func.clear();
 		distance.clear();
 		parent = null;
 		distance = null;
 		vertices = null;
         visited = null;
-        verticesBit = null;
+		verticesBit = null;
+		f_func = null;
 		return res;
 	}
 	
 	@Override
     public String toString()
     {
-        return "Dijkstra 2.0 Search algorithm";
+        return "A* Search algorithm";
     }
 }

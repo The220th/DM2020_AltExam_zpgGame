@@ -43,8 +43,8 @@ public class Town
     public IQuest getQuest(WorldMap map, Bot bot)
     {
         Random r = new Random();
-        //int what = r.nextInt(2);
-        int what = 0;
+        int what = r.nextInt(2);
+        //int what = 0;
         IQuest res = null;
         switch(what)
         {
