@@ -7,13 +7,13 @@ import ZPG.sMap.sPoint;
 import ZPG.GameLogic.Searchers.IDeWaySearcher;
 import ZPG.GameLogic.SetBit;
 
-public class AxisSearcher implements IDeWaySearcher
+public class DiagonalSearcher implements IDeWaySearcher
 {
     private WorldMap map;
 	private Deque<sPoint> deque;
     private HashMap<sPoint, sPoint> parent;
 
-    public AxisSearcher(WorldMap worldMap)
+    public DiagonalSearcher(WorldMap worldMap)
     {
         this.map = worldMap;
     }
