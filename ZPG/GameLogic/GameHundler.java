@@ -53,6 +53,12 @@ public class GameHundler
         bots.add(new Bot(buff, new AStarSearcher(this.map)));
         bots.add(new Bot(buff, new AxisSearcher(this.map)));
         bots.add(new Bot(buff, new CornerSearcher(this.map)));*/
+        /*bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new newDijkstra(this.map)));
+        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new LiSearcher(this.map)));
+        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new BreadthFirstSearcher(this.map)));
+        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new AStarSearcher(this.map)));
+        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new AxisSearcher(this.map)));
+        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new CornerSearcher(this.map)));*/
 
         this.print = print;
     }
@@ -82,7 +88,7 @@ public class GameHundler
                 res = new newDijkstra(this.map);
                 break;
             case 4:
-                res = new AxisSearcher(this.map);
+                res = new DiagonalSearcher(this.map);
                 break;
             case 5:
                 res = new CornerSearcher(this.map);
@@ -154,7 +160,6 @@ public class GameHundler
         Town res = null;
         double minR = Double.POSITIVE_INFINITY;
         double buff;
-
         for(Town t : towns)
         {
             if(from.equals(t.getCoords()))

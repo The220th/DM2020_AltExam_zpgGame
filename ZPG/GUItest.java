@@ -313,10 +313,16 @@ class sComponent extends JComponent
         //g.setPaint(buff);
     }
 
-    private void printBotCross(int x, int y, Color c, Graphics2D g)
+    private void printBotCross(int x, int y, Color c, Graphics2D g) //Отрисовка бота(он тут)
     {
         g.setPaint(c);
-        g.draw(new Ellipse2D.Double(x-15, y-15, 30, 30));
+        g.drawOval(x*sizeble-15, y*sizeble-15, 30, 30);
+        g.drawOval(x*sizeble-16, y*sizeble-16, 32, 32);
+        g.drawOval(x*sizeble-17, y*sizeble-17, 34, 34);
+        g.drawLine(x*sizeble-25, y*sizeble, x*sizeble-5, y*sizeble);
+        g.drawLine(x*sizeble+25, y*sizeble, x*sizeble+5, y*sizeble);
+        g.drawLine(x*sizeble, y*sizeble-25, x*sizeble, y*sizeble-5);
+        g.drawLine(x*sizeble, y*sizeble+25, x*sizeble, y*sizeble+5);
     }
 
     public GameHundler getGameHundler()
