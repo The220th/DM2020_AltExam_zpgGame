@@ -121,20 +121,41 @@ class sFrame extends JFrame
     {
         public BotsViewer(JFrame owner, List<Bot> bots)
         {
-            //Выблядит сейчас очень недружелюбно. Это можно пофиксить, если использовать диспетчер сеточно-контейнерной компоновки (GridBagLayout). Если не лень, то изучи эту штуку и сделай нормально=)
             super(owner, "View bot`s score", false);
-
+            setPreferredSize(new Dimension(700, 400));
+            GridLayout GLout = new GridLayout();
+            GLout.setColumns(1);
+            GLout.setRows(bots.size());
+            int min, buff;
+            Bot buffBot = null;
             List<Bot> sortedBots = new ArrayList<Bot>(bots);
-            //ТУТ СОРТИРОВКА ПО ОЧКАМ sortedBots
+            for(int i = sortedBots.size()-1; i > 0; --i)    //По убыванию (справа налево сортирует). Если надо по возрастанию - поменять на "слева направо"
+            {
+                min = sortedBots.get(i).getScores();
+                for(int j = i-1; j >= 0; --j)
+                {
+                    buff = sortedBots.get(j).getScores();
+                    if(buff < min)
+                    {
+                        min = buff;
+                        buffBot = sortedBots.get(j);
+                        sortedBots.set(j, sortedBots.get(i));
+                        sortedBots.set(i, buffBot);
+                    }
+                }
+            }
             JPanel Gjp = new JPanel();
+            Gjp.setLayout(GLout);
             for(Bot bot : sortedBots)
             {
                 JPanel jp = new JPanel();
-                jp.add(new JLabel(bot.toString()));
                 jp.add(new JLabel(bot.getInfo()));
                 Gjp.add(jp);
             }
+
             this.add(Gjp);
+            JScrollPane jSP = new JScrollPane(Gjp);
+            getContentPane().add(jSP);
             pack();
         }
     }

@@ -70,12 +70,12 @@ public class Town
         return res;
     }
 
-    public void getQuestToAll(WorldMap map, List<Bot> bots)
+    /*public void getQuestToAll(WorldMap map, List<Bot> bots)
     {
         IQuest res = new TownTravelQuest(bots.get(0), map, this);
         for(Bot bot : bots)
             bot.currentQuest = res;
-    }
+    }*/
 
     @Override
     public String toString()

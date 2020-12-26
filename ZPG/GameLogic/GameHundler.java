@@ -43,8 +43,6 @@ public class GameHundler
         this.bots = new ArrayList<Bot>();
         for(int i = 0; i < 10; ++i)
             bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), chooseSearchAlg()));
-        /*for(int i = 0; i < 1; ++i)
-            bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), chooseSearchAlg()));*/
 
         /*sPoint buff = new sPoint(0, 0); //delete below
         bots.add(new Bot(buff, new DijkstraSearcher(this.map)));
@@ -62,8 +60,8 @@ public class GameHundler
     private IDeWaySearcher chooseSearchAlg()
     {
         Random r = new Random();
-        //int what = r.nextInt(4);
-        int what = 0;
+        int what = r.nextInt(6);
+        //int what = 0;
         IDeWaySearcher res = null;
         switch(what)
         {
@@ -71,18 +69,28 @@ public class GameHundler
                 res = new BreadthFirstSearcher(this.map);
                 break;
             case 1:
-                if(DepthFirstSearcher.getNums() == -1)
+                /*if(DepthFirstSearcher.getNums() == -1)
                     res = new DepthFirstSearcher(this.map);
                 else
-                    res = new BreadthFirstSearcher(this.map);
+                    res = new BreadthFirstSearcher(this.map);*/
+                res = new AStarSearcher(this.map);
                 break;
             case 2:
                 res = new LiSearcher(this.map);
                 break;
             case 3:
-                res = new /*Dijkstra(this.map);*/ DijkstraSearcher(this.map);
+                res = new newDijkstra(this.map);
                 break;
             case 4:
+                res = new AxisSearcher(this.map);
+                break;
+            case 5:
+                res = new CornerSearcher(this.map);
+                break;
+            case 6:
+                res = null;
+                break;
+            case 7:
                 res = null;
                 break;
             default:

@@ -34,6 +34,14 @@ public class TownTravelQuest implements IQuest
 
         Random r = new Random();
         List<Town> towns = map.getTowns();
+        for(int i = 0; i < towns.size(); ++i)
+        {
+            if(towns.get(i).getCoords().equals(town.getCoords()));
+            {
+                towns.remove(i);
+                break;
+            }
+        }
         number = r.nextInt(towns.size()) % limit + 1;
         int rTown;
         
