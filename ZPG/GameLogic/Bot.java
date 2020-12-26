@@ -156,6 +156,11 @@ public class Bot
     @Override
     public String toString()
     {
+        return this.name;
+    }
+
+    public String getInfo()
+    {
         return this.name + " uses " + searchAlg + ", his scores " + scores + " and its coordinates = " + coords;
     }
 
