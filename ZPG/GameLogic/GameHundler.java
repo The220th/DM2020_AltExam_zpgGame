@@ -60,8 +60,8 @@ public class GameHundler
     private IDeWaySearcher chooseSearchAlg()
     {
         Random r = new Random();
-        int what = r.nextInt(6);
-        //int what = 0;
+        int what = r.nextInt(8);
+        //int what = 6;
         IDeWaySearcher res = null;
         switch(what)
         {
@@ -88,10 +88,10 @@ public class GameHundler
                 res = new CornerSearcher(this.map);
                 break;
             case 6:
-                res = null;
+                res = new LikstraSearcher(this.map);
                 break;
             case 7:
-                res = null;
+                res = new LiStarSearcher(this.map);
                 break;
             default:
                 System.out.println("Failed successfully in chooseSearchAlg");
