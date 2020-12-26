@@ -18,7 +18,7 @@ public class Bot
     private int scores;
 
     private Deque<sPoint> deWay;
-    private IQuest currentQuest;
+    public IQuest currentQuest; //Вернуть private
     
     private boolean BUSY;
     private int ticksDelay;

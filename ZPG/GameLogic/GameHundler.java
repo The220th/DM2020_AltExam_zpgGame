@@ -43,6 +43,18 @@ public class GameHundler
         this.bots = new ArrayList<Bot>();
         for(int i = 0; i < 10; ++i)
             bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), chooseSearchAlg()));
+        /*for(int i = 0; i < 1; ++i)
+            bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), chooseSearchAlg()));*/
+
+        /*sPoint buff = new sPoint(0, 0); //delete below
+        bots.add(new Bot(buff, new DijkstraSearcher(this.map)));
+        bots.add(new Bot(buff, new Dijkstra(this.map)));
+        bots.add(new Bot(buff, new newDijkstra(this.map)));
+        bots.add(new Bot(buff, new LiSearcher(this.map)));
+        bots.add(new Bot(buff, new BreadthFirstSearcher(this.map)));
+        bots.add(new Bot(buff, new AStarSearcher(this.map)));
+        bots.add(new Bot(buff, new AxisSearcher(this.map)));
+        bots.add(new Bot(buff, new CornerSearcher(this.map)));*/
 
         this.print = print;
     }

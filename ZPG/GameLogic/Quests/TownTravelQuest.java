@@ -17,9 +17,8 @@ public class TownTravelQuest implements IQuest
     private int totalReward;
     private sPoint where;
     private int number;
+    private static final int limit = 4;
 
-    private Bot bot;
-    private WorldMap map;
     private Town town;
     private Deque<QuestPoint> q;
     private LinkedList<Town> townsToVisit;
@@ -29,15 +28,13 @@ public class TownTravelQuest implements IQuest
         if(!town.getCoords().equals(bot.getCoords()))
             throw new IllegalArgumentException("Boot coordinates != town coordinates (bot = " + bot.getCoords() + ", town = " + town.getCoords() + ")");
         this.town = town;
-        this.map = map;
-        this.bot = bot;
         totalReward = 0;
         q = new LinkedList<QuestPoint>();
         townsToVisit = new LinkedList<Town>();
 
         Random r = new Random();
         List<Town> towns = map.getTowns();
-        number = r.nextInt(towns.size()) + 1;
+        number = r.nextInt(towns.size()) % limit + 1;
         int rTown;
         
         do
@@ -46,8 +43,9 @@ public class TownTravelQuest implements IQuest
             calcQuest(towns.get(rTown));
 
             townsToVisit.addFirst(towns.get(rTown));
+            towns.remove(rTown);
             --number;
-        } while(number != 0);
+        } while(number > 0);
         totalReward = (int)(totalReward/1.5 + 0.5);
         q.addFirst(new QuestPoint(IQuest.REWARD, Integer.valueOf((this.totalReward))));
         for(int i = 0; i < townsToVisit.size(); ++i)
