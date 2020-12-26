@@ -43,8 +43,8 @@ public class Town
     public IQuest getQuest(WorldMap map, Bot bot)
     {
         Random r = new Random();
-        int what = r.nextInt(2);
-        //int what = 0;
+        int what = r.nextInt(3);
+        //int what = 2;
         IQuest res = null;
         switch(what)
         {
@@ -55,7 +55,7 @@ public class Town
                 res = new TownTravelQuest(bot, map, this);
                 break;
             case 2:
-                res = null;
+                res = new TownDelivery(bot, map, this);
                 break;
             case 3:
                 res = null;
