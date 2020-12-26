@@ -66,7 +66,10 @@ class sFrame extends JFrame
         JMenuItem viewBotsItem = new JMenuItem("View score");
         viewBotsItem.addActionListener(
             event ->{
-                botViewer = new BotsViewer(this, GH.getBots());
+                if(botViewer == null)
+                    botViewer = new BotsViewer(this, GH.getBots());
+                else
+                    botViewer.reset(GH.getBots());
                 botViewer.setVisible(true);
             }
         );
@@ -119,6 +122,8 @@ class sFrame extends JFrame
 
     class BotsViewer extends JDialog
     {
+        JPanel Gjp;
+        LinkedList<JLabel> labels;
         public BotsViewer(JFrame owner, List<Bot> bots)
         {
             super(owner, "View bot`s score", false);
@@ -144,12 +149,15 @@ class sFrame extends JFrame
                     }
                 }
             }
-            JPanel Gjp = new JPanel();
+            Gjp = new JPanel();
             Gjp.setLayout(GLout);
+            labels = new LinkedList<JLabel>();
             for(Bot bot : sortedBots)
             {
+                JLabel bufflabel = new JLabel(bot.getInfo());
                 JPanel jp = new JPanel();
-                jp.add(new JLabel(bot.getInfo()));
+                labels.add(bufflabel);
+                jp.add(bufflabel);
                 Gjp.add(jp);
             }
 
@@ -157,6 +165,32 @@ class sFrame extends JFrame
             JScrollPane jSP = new JScrollPane(Gjp);
             getContentPane().add(jSP);
             pack();
+        }
+        
+        public void reset(List<Bot> bots)
+        {
+            int min, buff;
+            Bot buffBot = null;
+            List<Bot> sortedBots = new ArrayList<Bot>(bots);
+            for(int i = sortedBots.size()-1; i > 0; --i)    //По убыванию (справа налево сортирует). Если надо по возрастанию - поменять на "слева направо"
+            {
+                min = sortedBots.get(i).getScores();
+                for(int j = i-1; j >= 0; --j)
+                {
+                    buff = sortedBots.get(j).getScores();
+                    if(buff < min)
+                    {
+                        min = buff;
+                        buffBot = sortedBots.get(j);
+                        sortedBots.set(j, sortedBots.get(i));
+                        sortedBots.set(i, buffBot);
+                    }
+                }
+            }
+
+            int j = 0;
+            for(JLabel label : labels)
+                label.setText(sortedBots.get(j++).getInfo());
         }
     }
 }
@@ -204,8 +238,13 @@ class sComponent extends JComponent
         
         int x, y;
         List<Bot> bots = GH.getBots();
+        for(Bot bott : bots)
+            paintBlock(bott.getCoords().getX(), bott.getCoords().getY(), botColor, g);
+
         if(currentBot != null)
         {
+            x = currentBot.getCoords().getX();
+            y = currentBot.getCoords().getY();
             Deque<sPoint> buffWay = currentBot.getDeWay();
             if(buffWay != null)
             {
@@ -218,9 +257,9 @@ class sComponent extends JComponent
                 for(sPoint p : way)
                     paintBlock(p.getX(), p.getY(), wayColor, g);
             }
-            x = currentBot.getCoords().getX();
-            y = currentBot.getCoords().getY();
             paintBlock(x, y, botColor, g);
+            printBotCross(x, y, botColor, g);
+
         }
 
             /*for(Bot bot : bots)
@@ -266,6 +305,12 @@ class sComponent extends JComponent
         g.setPaint(c);
         g.fillRect(X*sizeble, Y*sizeble, sizeble, sizeble);
         //g.setPaint(buff);
+    }
+
+    private void printBotCross(int x, int y, Color c, Graphics2D g)
+    {
+        g.setPaint(c);
+        g.draw(new Ellipse2D.Double(x-15, y-15, 30, 30));
     }
 
     public GameHundler getGameHundler()
