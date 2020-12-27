@@ -76,6 +76,6 @@ public class TownDelivery implements IQuest
     @Override
     public String toString()
     {
-        return "Need to deliver *thing* to this town " + town + ". Reward is " + reward;
+        return "delivering something to town at " + town.getCoords() + ". Reward is " + reward;
     }
 }

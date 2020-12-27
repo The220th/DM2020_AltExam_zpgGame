@@ -99,6 +99,6 @@ public class DiagonalSearcher implements IDeWaySearcher
 	@Override
     public String toString()
     {
-        return "Axises search algorithm";
+        return "Diagonal search algorithm";
     }
 }

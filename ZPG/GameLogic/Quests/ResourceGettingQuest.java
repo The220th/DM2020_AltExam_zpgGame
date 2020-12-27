@@ -92,6 +92,6 @@ public class ResourceGettingQuest implements IQuest
     @Override
     public String toString()
     {
-        return "Need to get some resources at " + targetPlacement + ". Reward is" + reward;
+        return "getting some resources at " + targetPlacement + ". Reward is " + reward;
     }
 }

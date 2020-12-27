@@ -76,6 +76,6 @@ public class OneItemQuest implements IQuest
     @Override
     public String toString()
     {
-        return "Need to get to " + where + ". Reward: " + reward;
+        return "getting to " + where + " to pick up something. Reward: " + reward;
     }
 }
