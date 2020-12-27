@@ -1,5 +1,3 @@
-//Дейкстра, но рассматривает точки до maxR
-
 package ZPG.GameLogic.Searchers;
 
 import java.util.*;

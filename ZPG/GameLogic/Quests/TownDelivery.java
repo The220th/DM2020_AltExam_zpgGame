@@ -22,8 +22,8 @@ public class TownDelivery implements IQuest
     {
         if(!town.getCoords().equals(bot.getCoords()))
             throw new IllegalArgumentException("Boot coordinates != town coordinates (bot = " + bot.getCoords() + ", town = " + town.getCoords() + ")");
-        this.town = town;
         reward = 0;
+        this.town = town;
         q = new LinkedList<QuestPoint>();
 
         Random r = new Random();
@@ -36,6 +36,7 @@ public class TownDelivery implements IQuest
             rTown = r.nextInt(towns.size());
             buffTown = towns.get(rTown);
         } while(buffTown.getCoords().equals(town.getCoords()) || buffTown.getCoords().getDistance(town.getCoords()) > radius*2.5);
+        this.town = buffTown;
         reward = (int)(buffTown.getCoords().getDistance(town.getCoords())*0.7 + 0.5);
         q.addFirst(new QuestPoint(IQuest.REWARD, Integer.valueOf((this.reward))));
         q.addFirst(new QuestPoint(IQuest.NEXT_PLACE_TO_VISIT, buffTown.getCoords()));

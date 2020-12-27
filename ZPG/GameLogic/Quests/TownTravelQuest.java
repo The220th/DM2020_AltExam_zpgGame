@@ -98,6 +98,6 @@ public class TownTravelQuest implements IQuest
     @Override
     public String toString()
     {
-        return "visiting " + (q.size()-1) + " towns. The nearest one is " + q.getFirst().getValue() + ". Reward is " + totalReward;
+        return "visiting " + (q.size()-1) + " towns. The next one is at " + q.getFirst().getValue() + ". Reward is " + totalReward;
     }
 }

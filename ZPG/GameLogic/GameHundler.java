@@ -55,10 +55,13 @@ public class GameHundler
         bots.add(new Bot(buff, new CornerSearcher(this.map)));*/
         /*bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new newDijkstra(this.map)));
         bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new LiSearcher(this.map)));
+        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new UnweightedLiSearcher(this.map)));
         bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new BreadthFirstSearcher(this.map)));
         bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new AStarSearcher(this.map)));
         bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new AxisSearcher(this.map)));
-        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new CornerSearcher(this.map)));*/
+        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new CornerSearcher(this.map)));
+        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new LikstraSearcher(this.map)));
+        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new LiStarSearcher(this.map)));*/
 
         this.print = print;
     }
@@ -66,7 +69,7 @@ public class GameHundler
     private IDeWaySearcher chooseSearchAlg()
     {
         Random r = new Random();
-        int what = r.nextInt(8);
+        int what = r.nextInt(9);
         //int what = 6;
         IDeWaySearcher res = null;
         switch(what)
@@ -98,6 +101,9 @@ public class GameHundler
                 break;
             case 7:
                 res = new LiStarSearcher(this.map);
+                break;
+            case 8:
+                res = new UnweightedLiSearcher(this.map);
                 break;
             default:
                 System.out.println("Failed successfully in chooseSearchAlg");
