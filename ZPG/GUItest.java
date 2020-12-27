@@ -128,7 +128,7 @@ class sFrame extends JFrame
         public BotsViewer(JFrame owner, List<Bot> bots)
         {
             super(owner, "View bots", false);
-            setPreferredSize(new Dimension(700, 400));
+            setPreferredSize(new Dimension(1150, 400));
             GridLayout GLout = new GridLayout();
             GLout.setColumns(1);
             GLout.setRows(bots.size()+1); //+1 для кнопки

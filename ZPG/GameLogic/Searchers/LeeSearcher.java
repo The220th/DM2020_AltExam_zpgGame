@@ -7,14 +7,14 @@ import ZPG.sMap.sPoint;
 import ZPG.GameLogic.Searchers.IDeWaySearcher;
 import ZPG.GameLogic.SetBit;
 
-public class LiSearcher implements IDeWaySearcher
+public class LeeSearcher implements IDeWaySearcher
 {
     private WorldMap map;
     private Deque<sPoint> deque;
     private HashMap<sPoint, sPoint> parent;
 	private HashMap<sPoint, Double> distance;
 
-    public LiSearcher(WorldMap worldMap)
+    public LeeSearcher(WorldMap worldMap)
     {
         this.map = worldMap;
     }

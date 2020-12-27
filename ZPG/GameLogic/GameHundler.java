@@ -44,24 +44,18 @@ public class GameHundler
         for(int i = 0; i < 10; ++i)
             bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), chooseSearchAlg()));
 
-        /*sPoint buff = new sPoint(0, 0); //delete below
-        bots.add(new Bot(buff, new DijkstraSearcher(this.map)));
-        bots.add(new Bot(buff, new Dijkstra(this.map)));
-        bots.add(new Bot(buff, new newDijkstra(this.map)));
-        bots.add(new Bot(buff, new LiSearcher(this.map)));
-        bots.add(new Bot(buff, new BreadthFirstSearcher(this.map)));
-        bots.add(new Bot(buff, new AStarSearcher(this.map)));
-        bots.add(new Bot(buff, new AxisSearcher(this.map)));
-        bots.add(new Bot(buff, new CornerSearcher(this.map)));*/
+        //sPoint buff = new sPoint(0, 0);
         /*bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new newDijkstra(this.map)));
-        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new LiSearcher(this.map)));
-        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new UnweightedLiSearcher(this.map)));
+        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new LeeSearcher(this.map)));
+        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new UnweightedLeeSearcher(this.map)));
         bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new BreadthFirstSearcher(this.map)));
         bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new AStarSearcher(this.map)));
-        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new AxisSearcher(this.map)));
+        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new DiagonalSearcher(this.map)));
         bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new CornerSearcher(this.map)));
-        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new LikstraSearcher(this.map)));
-        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new LiStarSearcher(this.map)));*/
+        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new LeekstraSearcher(this.map)));
+        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new LeeStarSearcher(this.map)));
+        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new BellmanFordSearcher(this.map)));
+        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new LeeBellFordSearcher(this.map)));*/
 
         this.print = print;
     }
@@ -69,7 +63,7 @@ public class GameHundler
     private IDeWaySearcher chooseSearchAlg()
     {
         Random r = new Random();
-        int what = r.nextInt(9);
+        int what = r.nextInt(11);
         //int what = 6;
         IDeWaySearcher res = null;
         switch(what)
@@ -85,7 +79,7 @@ public class GameHundler
                 res = new AStarSearcher(this.map);
                 break;
             case 2:
-                res = new LiSearcher(this.map);
+                res = new LeeSearcher(this.map);
                 break;
             case 3:
                 res = new newDijkstra(this.map);
@@ -97,13 +91,19 @@ public class GameHundler
                 res = new CornerSearcher(this.map);
                 break;
             case 6:
-                res = new LikstraSearcher(this.map);
+                res = new LeekstraSearcher(this.map);
                 break;
             case 7:
-                res = new LiStarSearcher(this.map);
+                res = new LeeStarSearcher(this.map);
                 break;
             case 8:
-                res = new UnweightedLiSearcher(this.map);
+                res = new UnweightedLeeSearcher(this.map);
+                break;
+            case 9:
+                res = new BellmanFordSearcher(this.map);
+                break;
+            case 10:
+                res = new LeeBellFordSearcher(this.map);
                 break;
             default:
                 System.out.println("Failed successfully in chooseSearchAlg");
@@ -166,17 +166,24 @@ public class GameHundler
         Town res = null;
         double minR = Double.POSITIVE_INFINITY;
         double buff;
-        for(Town t : towns)
+        try
         {
-            if(from.equals(t.getCoords()))
-                return t;
-            
-            buff = t.getCoords().getDistance(from);
-            if(minR > buff)
+            for(Town t : towns)
             {
-                minR = buff;
-                res = t;
+                if(from.equals(t.getCoords()))
+                    return t;
+                
+                buff = t.getCoords().getDistance(from);
+                if(minR > buff)
+                {
+                    minR = buff;
+                    res = t;
+                }
             }
+        } 
+        catch(Throwable t)
+        {
+            System.out.println("NullPointer in getNearestTown function");
         }
         return res;
     }

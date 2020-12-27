@@ -9,17 +9,17 @@ import ZPG.GameLogic.Searchers.newDijkstra;
 import ZPG.GameLogic.SetBit;
 
 
-public class LiStarSearcher implements IDeWaySearcher
+public class LeekstraSearcher implements IDeWaySearcher
 {
     private WorldMap map;
     private int maxR;
     private IDeWaySearcher searcher;
 
-    public LiStarSearcher(WorldMap worldMap)
+    public LeekstraSearcher(WorldMap worldMap)
     {
         this.map = worldMap;
         maxR = 250;
-        searcher = new AStarSearcher(this.map);
+        searcher = new newDijkstra(this.map); 
     }
 
     public Deque<sPoint> search(sPoint start, sPoint end) throws IllegalArgumentException
@@ -89,6 +89,6 @@ public class LiStarSearcher implements IDeWaySearcher
 	@Override
     public String toString()
     {
-        return "LiStar";
+        return "Likstra";
     }
 }

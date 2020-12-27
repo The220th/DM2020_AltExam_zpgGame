@@ -7,16 +7,15 @@ import ZPG.sMap.sPoint;
 import ZPG.GameLogic.Searchers.IDeWaySearcher;
 import ZPG.GameLogic.SetBit;
 
-public class UnweightedLiSearcher implements IDeWaySearcher
+public class BellmanFordSearcher implements IDeWaySearcher
 {
-    private WorldMap map;
-    private SetBit visited;
+	private WorldMap map;
+	private SetBit visited;
     private Deque<sPoint> deque;
     private HashMap<sPoint, sPoint> parent;
-	private HashMap<sPoint, Integer> distance;
-	private Integer time;
+	private HashMap<sPoint, Double> distance;
 
-    public UnweightedLiSearcher(WorldMap worldMap)
+    public BellmanFordSearcher(WorldMap worldMap)
     {
         this.map = worldMap;
     }
@@ -30,74 +29,65 @@ public class UnweightedLiSearcher implements IDeWaySearcher
         if(start.equals(end))
             return res;
 
-		time = 0;
         sPoint v;
-        sPoint u;
+		sPoint u;
+		Double dist;
         boolean ENDED;
-        List<sPoint> buff = new LinkedList<sPoint>();
+		List<sPoint> buff = new LinkedList<sPoint>();
+		visited = new SetBit(map.getMaxLineNum()+1);
         deque = new LinkedList<sPoint>();
-        Deque<sPoint> buffDeque = new LinkedList<sPoint>();
-        visited = new SetBit(map.getMaxLineNum()+1);
         parent = new HashMap<sPoint, sPoint>();
-        distance = new HashMap<sPoint, Integer>();
+        distance = new HashMap<sPoint, Double>();
 
         deque.addLast(start);
         parent.put(start, null);
-		distance.put(start, 0);
+		distance.put(start, 0.0);
+		visited.add(map.toLineNum(start));
 
         ENDED = false;
         v = start;
-		visited.add(map.toLineNum(v));
         while(!ENDED)
         {
-			time++;
 			while(!deque.isEmpty())
 			{
 				u = deque.pollFirst();
-				
+				visited.add(map.toLineNum(u));
 				if(u.equals(end))
 				{
 					ENDED = true;
 					v = u;
 					break;
 				}
-				buff = map.getListOfAdjacentVertices(u, true, visited);
+				buff = map.getListOfAdjacentVertices(u, true, null);
 				for(sPoint b : buff)
 				{
-					visited.add(map.toLineNum(b));
-					parent.put(b, u);
-					distance.put(b, time);
-					buffDeque.addLast(b);
+					dist = distance.get(u) + map.getCost(u, b);
+					if(distance.get(b) == null || distance.get(b) > dist)
+					{
+						parent.put(b, u);
+						distance.put(b, dist);
+						if(visited.contains(map.toLineNum(b)))
+							deque.addFirst(b);
+						else
+							deque.addLast(b);
+					}
 				}
-			}
-			while(!ENDED && !buffDeque.isEmpty())
-			{
-				u = buffDeque.pollFirst();
-				if(!deque.contains(u)) 
-					deque.addLast(u);
 			}
         }
 
-		visited.clear();
 		v = end;
-		res.addFirst(end);
 		do
 		{
-			buff = map.getListOfAdjacentVertices(v, true, visited);
-			for(sPoint b : buff)
-			{
-				if(distance.get(b) != null && distance.get(b) < distance.get(v))
-					v = b;
-			}
-			if(!v.equals(start))
-				res.addFirst(v);
-		}while(!v.equals(start));
+			res.addFirst(v);
+			v = parent.get(v);
+		}while(v != null && !v.equals(start));
 		
 		parent.clear();
 		parent = null;
 		distance.clear();
 		distance = null;
 		deque = null;
+		visited.clear();
 		visited = null;
 		
 		return res;
@@ -106,6 +96,6 @@ public class UnweightedLiSearcher implements IDeWaySearcher
 	@Override
     public String toString()
     {
-        return "Unweighted Wave search algorithm (Lee's algorithm)";
+        return "Bellman-Ford search algorithm";
     }
 }
