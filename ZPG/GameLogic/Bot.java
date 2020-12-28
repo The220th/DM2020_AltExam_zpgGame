@@ -75,7 +75,14 @@ public class Bot implements Comparable<Bot>
     private void goTo(sPoint p)
     {
         ticksDelay += (int)(GH.getMap().getCost(this.coords, p) + 0.5);
-        this.coords = p;
+		if(p != null)
+			this.coords = p;
+		else
+		{
+			System.out.println(this + " O6OCPAJlC9. Next point = " + p + ". Info: " + this.getInfo());
+			currentQuest = null;
+			deWay = null;
+		}
     }
 
     /*

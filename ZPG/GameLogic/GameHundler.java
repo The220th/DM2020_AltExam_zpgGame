@@ -42,7 +42,7 @@ public class GameHundler
         this.delayToPrint = 1000;
 
         this.bots = new ArrayList<Bot>();
-        for(int i = 0; i < 10; ++i)
+        for(int i = 0; i < 25; ++i)
             bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), chooseSearchAlg()));
 
         //sPoint buff = new sPoint(0, 0);
@@ -117,32 +117,39 @@ public class GameHundler
     {
         Runnable task = () ->
         {
-            int printTick = 0;
-            while(true)
-            {
-                ++currentTick;
-                printTick+=delayBetweenTick;
-                if(currentTick % 500 == 0)
-                    System.out.println("Tick = " + currentTick);
-                for(Bot curBot : bots)
-                {
-                    curBot.live();
-                }
-            
-                try
-                {
-                    Thread.sleep(delayBetweenTick);
-                }
-                catch(InterruptedException e)
-                {
-                    System.out.println(e);
-                }
-                if(printTick >= delayToPrint)
-                {
-                    print.run();
-                    printTick = 0;
-                }
-            }
+			try
+			{
+				int printTick = 0;
+				while(true)
+				{
+					++currentTick;
+					printTick += delayBetweenTick;
+					if(currentTick % 500 == 0)
+						System.out.println("Tick = " + currentTick);
+					for(Bot curBot : bots)
+					{
+						curBot.live();
+					}
+				
+					try
+					{
+						Thread.sleep(delayBetweenTick);
+					}
+					catch(InterruptedException e)
+					{
+						System.out.println(e);
+					}
+					if(printTick >= delayToPrint)
+					{
+						print.run();
+						printTick = 0;
+					}
+				}
+			}
+			catch(Throwable t)
+			{
+				System.out.println(t);
+			}
         };
         new Thread(task).start();
     }
