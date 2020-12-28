@@ -59,7 +59,8 @@ public class TownTravelQuest implements IQuest
         for(int i = 0; i < townsToVisit.size(); ++i)
             q.addFirst(new QuestPoint(IQuest.NEXT_PLACE_TO_VISIT, townsToVisit.get(i).getCoords()));
 		
-		
+        towns.clear();
+        towns = null;
 		townsToVisit = null;
     }
 

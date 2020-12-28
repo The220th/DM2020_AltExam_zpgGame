@@ -40,7 +40,7 @@ public class CornerSearcher implements IDeWaySearcher
         parent.put(start, null);
 
 		ENDED = false;
-		xAxis = false;
+		xAxis = new Random().nextBoolean();
 		v = start;
 		/*System.out.println("[Corner] I have to get to " + end + ". My position is " + start);
 		long startTime = System.currentTimeMillis();*/
@@ -57,8 +57,10 @@ public class CornerSearcher implements IDeWaySearcher
 				}
 				buff = map.getListOfAdjacentVertices(u, true, null);
 				buffPoint = null;
-				if(Math.abs(u.getY()-end.getY()) == 0)
+				if(!xAxis && Math.abs(u.getY()-end.getY()) == 0)
 					xAxis = true;
+				else if(xAxis && Math.abs(u.getX()-end.getX()) == 0)
+					xAxis = false;
 				for(sPoint b : buff)
 				{
 					if(xAxis)

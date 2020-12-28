@@ -44,7 +44,7 @@ public class Town
     {
         Random r = new Random();
         int what = r.nextInt(5);
-        //int what = 4;
+        //int what = 2;
         IQuest res = null;
         switch(what)
         {

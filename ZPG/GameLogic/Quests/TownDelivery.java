@@ -40,6 +40,9 @@ public class TownDelivery implements IQuest
         reward = (int)(buffTown.getCoords().getDistance(town.getCoords())*0.7 + 0.5);
         q.addFirst(new QuestPoint(IQuest.REWARD, Integer.valueOf((this.reward))));
         q.addFirst(new QuestPoint(IQuest.NEXT_PLACE_TO_VISIT, buffTown.getCoords()));
+        
+        towns.clear();
+        towns = null;
     }
 
     public QuestPoint getNextQuestPoint()

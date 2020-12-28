@@ -514,8 +514,8 @@ public class WorldMap
         TownsGenerator tg = (new TownsGenerator(rawMap_heights, 75)).roadR(1).minR(2);
         tg.addTowns();
         towns = tg.getTowns();
-        /*for(Town t : this.towns)
-            System.out.println(t);*/
+        for(Town t : this.towns)    //УБРАТЬ
+            System.out.println(t);
 
         //влажность
         LandscapeGenerator wets = new LandscapeGenerator(size_pow2, maxWet, 4, 0.07f);
@@ -679,6 +679,7 @@ public class WorldMap
     
     public List<Town> getTowns()
     {
-        return towns;
+        //return towns;
+        return new ArrayList<Town>(towns);
     }
 }

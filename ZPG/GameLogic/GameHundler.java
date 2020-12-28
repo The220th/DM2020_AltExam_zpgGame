@@ -42,11 +42,11 @@ public class GameHundler
         this.delayToPrint = 1000;
 
         this.bots = new ArrayList<Bot>();
-        for(int i = 0; i < 25; ++i)
-            bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), chooseSearchAlg()));
+        /*for(int i = 0; i < 25; ++i)
+            bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), chooseSearchAlg()));*/
 
         //sPoint buff = new sPoint(0, 0);
-        /*bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new newDijkstra(this.map)));
+        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new newDijkstra(this.map)));
         bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new LeeSearcher(this.map)));
         bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new UnweightedLeeSearcher(this.map)));
         bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new BreadthFirstSearcher(this.map)));
@@ -56,7 +56,7 @@ public class GameHundler
         bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new LeekstraSearcher(this.map)));
         bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new LeeStarSearcher(this.map)));
         bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new BellmanFordSearcher(this.map)));
-        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new LeeBellFordSearcher(this.map)));*/
+        bots.add(new Bot(sPoint.rndPoint(0, map.getMaxSize()-1), new LeeBellFordSearcher(this.map)));
 
         this.print = print;
     }
@@ -176,24 +176,17 @@ public class GameHundler
         Town res = null;
         double minR = Double.POSITIVE_INFINITY;
         double buff;
-        try
+        for(Town t : towns)
         {
-            for(Town t : towns)
+            if(from.equals(t.getCoords()))
+                return t;
+            
+            buff = t.getCoords().getDistance(from);
+            if(minR > buff)
             {
-                if(from.equals(t.getCoords()))
-                    return t;
-                
-                buff = t.getCoords().getDistance(from);
-                if(minR > buff)
-                {
-                    minR = buff;
-                    res = t;
-                }
+                minR = buff;
+                res = t;
             }
-        } 
-        catch(Throwable t)
-        {
-            System.out.println("NullPointer in getNearestTown function");
         }
         return res;
     }
