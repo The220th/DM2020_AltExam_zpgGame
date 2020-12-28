@@ -195,11 +195,16 @@ public class GameHundler
         Collections.sort(sortedBots);
         Collections.reverse(sortedBots);
         StringBuilder res = new StringBuilder();
-        res.apppend("\n==============================\n");
+        res.append("\n==============================\n");
         res.append("Tick: " + currentTick + " \n");
         for(Bot bot : sortedBots)    
             res.append(bot.getInfo() + "\n");
-        res.apppend("==============================\n");
+        res.append("==============================\n");
         return res.toString();
+    }
+
+    public int getCurrentTick()
+    {
+        return currentTick;
     }
 }

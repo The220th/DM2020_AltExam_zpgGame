@@ -124,6 +124,7 @@ class sFrame extends JFrame
     {
         JPanel Gjp;
         LinkedList<JLabel> labels;
+        JLabel ticks;
 
         public BotsViewer(JFrame owner, List<Bot> bots)
         {
@@ -131,7 +132,7 @@ class sFrame extends JFrame
             setPreferredSize(new Dimension(1150, 400));
             GridLayout GLout = new GridLayout();
             GLout.setColumns(1);
-            GLout.setRows(bots.size()+1); //+1 для кнопки
+            GLout.setRows(bots.size()+2); //+1 для кнопки и ещё +1 для тиков
             int min, buff;
             Bot buffBot = null;
             List<Bot> sortedBots = new ArrayList<Bot>(bots);
@@ -156,6 +157,9 @@ class sFrame extends JFrame
             JButton jbutton = new JButton("Refresh");
             jbutton.addActionListener(event -> this.reset(GameHundler.getCurrentGameHundler().getBots()));
             Gjp.add(jbutton);
+
+            ticks = new JLabel("Tick = " + GameHundler.getCurrentGameHundler().getCurrentTick() );
+            Gjp.add((new JPanel()).add(ticks), BorderLayout.CENTER);
 
             labels = new LinkedList<JLabel>();
             for(Bot bot : sortedBots)
@@ -194,6 +198,7 @@ class sFrame extends JFrame
                 }
             }
 
+            ticks.setText("Tick = " + GameHundler.getCurrentGameHundler().getCurrentTick());
             int j = 0;
             for(JLabel label : labels)
                 label.setText(sortedBots.get(j++).getInfo());
