@@ -117,10 +117,10 @@ public class GameHundler
     {
         Runnable task = () ->
         {
-			try
+			int printTick = 0;
+			while(true)
 			{
-				int printTick = 0;
-				while(true)
+				try
 				{
 					++currentTick;
 					printTick += delayBetweenTick;
@@ -145,11 +145,13 @@ public class GameHundler
 						printTick = 0;
 					}
 				}
+				catch(Throwable t)
+				{
+					System.out.println(t);
+					System.out.println(t.printStackTrace());
+				}
 			}
-			catch(Throwable t)
-			{
-				System.out.println(t);
-			}
+			
         };
         new Thread(task).start();
     }
