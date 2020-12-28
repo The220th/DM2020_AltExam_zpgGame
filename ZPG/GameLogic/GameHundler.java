@@ -147,8 +147,8 @@ public class GameHundler
 				}
 				catch(Throwable t)
 				{
-					System.out.println(t);
-					System.out.println(t.printStackTrace());
+                    System.out.println(t);
+                    t.printStackTrace();
 				}
 			}
 			

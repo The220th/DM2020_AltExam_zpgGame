@@ -1,0 +1,7 @@
+
+C:\Users\220\Documents\git\DM2020_AltExam_zpgGame>chcp 1251 
+Текущая кодовая страница: 1251
+
+C:\Users\220\Documents\git\DM2020_AltExam_zpgGame>javac -encoding utf-8 -Xlint:unchecked .\ZPG\GameLogic\GameHundler.java 
+
+C:\Users\220\Documents\git\DM2020_AltExam_zpgGame>java  -Xms4096m -Xmx8192m ZPG.GameLogic.GameHundler 
