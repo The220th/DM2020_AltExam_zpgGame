@@ -89,6 +89,6 @@ public class LeeStarSearcher implements IDeWaySearcher
 	@Override
     public String toString()
     {
-        return "LiStar";
+        return "LeeStar";
     }
 }

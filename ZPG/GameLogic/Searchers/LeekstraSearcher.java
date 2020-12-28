@@ -89,6 +89,6 @@ public class LeekstraSearcher implements IDeWaySearcher
 	@Override
     public String toString()
     {
-        return "Likstra";
+        return "Leekstra";
     }
 }
