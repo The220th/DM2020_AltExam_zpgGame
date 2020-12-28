@@ -7,13 +7,15 @@ import ZPG.sMap.sPoint;
 import ZPG.GameLogic.Searchers.IDeWaySearcher;
 import ZPG.GameLogic.SetBit;
 
-public class DiagonalSearcher implements IDeWaySearcher
+public class BellmanFordSearcher implements IDeWaySearcher
 {
-    private WorldMap map;
-	private Deque<sPoint> deque;
+	private WorldMap map;
+	private SetBit visited;
+    private Deque<sPoint> deque;
     private HashMap<sPoint, sPoint> parent;
+	private HashMap<sPoint, Double> distance;
 
-    public DiagonalSearcher(WorldMap worldMap)
+    public BellmanFordSearcher(WorldMap worldMap)
     {
         this.map = worldMap;
     }
@@ -28,27 +30,28 @@ public class DiagonalSearcher implements IDeWaySearcher
             return res;
 
         sPoint v;
-        sPoint u;
-        sPoint buffPoint;
-		boolean ENDED;
-		boolean xAxis;
+		sPoint u;
+		Double dist;
+        boolean ENDED;
 		List<sPoint> buff = new LinkedList<sPoint>();
-		deque = new LinkedList<sPoint>();
+		visited = new SetBit(map.getMaxLineNum()+1);
+        deque = new LinkedList<sPoint>();
         parent = new HashMap<sPoint, sPoint>();
+        distance = new HashMap<sPoint, Double>();
 
         deque.addLast(start);
         parent.put(start, null);
+		distance.put(start, 0.0);
+		visited.add(map.toLineNum(start));
 
-		ENDED = false;
-		xAxis = false;
-		v = start;
-		/*System.out.println("[Axis] I have to get to " + end + ". My position is " + start);
-		long startTime = System.currentTimeMillis();*/
+        ENDED = false;
+        v = start;
         while(!ENDED)
         {
 			while(!deque.isEmpty())
 			{
 				u = deque.pollFirst();
+				visited.add(map.toLineNum(u));
 				if(u.equals(end))
 				{
 					ENDED = true;
@@ -56,42 +59,36 @@ public class DiagonalSearcher implements IDeWaySearcher
 					break;
 				}
 				buff = map.getListOfAdjacentVertices(u, true, null);
-				buffPoint = null;
-				if(Math.abs(u.getX()-end.getX()) == 0)
-					xAxis = false;
-				else if(Math.abs(u.getY()-end.getY()) == 0)
-					xAxis = true;
 				for(sPoint b : buff)
 				{
-					if(xAxis)
+					dist = distance.get(u) + map.getCost(u, b);
+					if(distance.get(b) == null || distance.get(b) > dist)
 					{
-						if(buffPoint == null || Math.abs(end.getX()-b.getX()) < Math.abs(end.getX()-buffPoint.getX()))
-							buffPoint = b;
-					}
-					else
-					{
-						if(buffPoint == null || Math.abs(end.getY()-b.getY()) < Math.abs(end.getY()-buffPoint.getY()))
-							buffPoint = b;
+						parent.put(b, u);
+						distance.put(b, dist);
+						if(visited.contains(map.toLineNum(b)))
+							deque.addFirst(b);
+						else
+							deque.addLast(b);
 					}
 				}
-				parent.put(buffPoint, u);
-				deque.addLast(buffPoint);
-				xAxis = !xAxis;
 			}
         }
+
 		v = end;
 		do
 		{
 			res.addFirst(v);
 			v = parent.get(v);
-		}while(!v.equals(start));
-
-		/*long endTime = System.currentTimeMillis();
-		System.out.println("[Axis] Moving out! It took " + (endTime-startTime) + " ms.");*/
+		}while(v != null && !v.equals(start));
 		
 		parent.clear();
 		parent = null;
+		distance.clear();
+		distance = null;
 		deque = null;
+		visited.clear();
+		visited = null;
 		
 		return res;
 	}
@@ -99,6 +96,6 @@ public class DiagonalSearcher implements IDeWaySearcher
 	@Override
     public String toString()
     {
-        return "Diagonal search algorithm";
+        return "Bellman-Ford search algorithm";
     }
 }

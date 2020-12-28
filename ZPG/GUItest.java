@@ -63,7 +63,7 @@ class sFrame extends JFrame
                 botChooser.setVisible(true);
             }
         );
-        JMenuItem viewBotsItem = new JMenuItem("View score");
+        JMenuItem viewBotsItem = new JMenuItem("View bots");
         viewBotsItem.addActionListener(
             event ->{
                 if(botViewer == null)
@@ -127,8 +127,8 @@ class sFrame extends JFrame
 
         public BotsViewer(JFrame owner, List<Bot> bots)
         {
-            super(owner, "View bot`s score", false);
-            setPreferredSize(new Dimension(700, 400));
+            super(owner, "View bots", false);
+            setPreferredSize(new Dimension(1150, 400));
             GridLayout GLout = new GridLayout();
             GLout.setColumns(1);
             GLout.setRows(bots.size()+1); //+1 для кнопки
@@ -153,7 +153,7 @@ class sFrame extends JFrame
             Gjp = new JPanel();
             Gjp.setLayout(GLout);
 
-            JButton jbutton = new JButton("Reset");
+            JButton jbutton = new JButton("Refresh");
             jbutton.addActionListener(event -> this.reset(GameHundler.getCurrentGameHundler().getBots()));
             Gjp.add(jbutton);
 

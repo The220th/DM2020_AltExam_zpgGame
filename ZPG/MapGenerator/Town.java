@@ -43,8 +43,8 @@ public class Town
     public IQuest getQuest(WorldMap map, Bot bot)
     {
         Random r = new Random();
-        int what = r.nextInt(4);
-        //int what = 3;
+        int what = r.nextInt(5);
+        //int what = 4;
         IQuest res = null;
         switch(what)
         {
@@ -61,7 +61,7 @@ public class Town
                 res = new ResourceGettingQuest(bot, map, this);
                 break;
             case 4:
-                res = null;
+                res = new RandomPointQuest(bot, map, this);
                 break;
             default:
                 System.out.println("Failed successfully in getQuest");

@@ -98,12 +98,6 @@ public class TownTravelQuest implements IQuest
     @Override
     public String toString()
     {
-        StringBuilder builder = new StringBuilder();
-        String str;
-        for(Town town : townsToVisit)
-            builder.insert(0, town.getName() + " " + town.getCoords() + ", ");
-        str = builder.toString();
-        str = str.substring(0, str.length()-2) + ". Reward is " + totalReward;
-        return "Need to visit these towns: " + str;
+        return "visiting " + (q.size()-1) + " towns. The next one is at " + q.getFirst().getValue() + ". Reward is " + totalReward;
     }
 }

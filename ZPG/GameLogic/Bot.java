@@ -161,7 +161,7 @@ public class Bot implements Comparable<Bot>
 
     public String getInfo()
     {
-        return this.name + " uses " + searchAlg + ", his scores " + scores + " and its coordinates = " + coords;
+        return this.name + " uses " + searchAlg + ", his scores " + scores + " and its coordinates = " + coords + ". My quest is " + currentQuest;
     }
 
     public Object getLock4Print()
