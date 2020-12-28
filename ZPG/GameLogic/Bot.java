@@ -9,7 +9,7 @@ import ZPG.MapGenerator.Town;
 import ZPG.sMap.sPoint;
 import ZPG.GameLogic.Quests.*;
 
-public class Bot
+public class Bot implements Comparable<Bot>
 {
     private static int numbers = 1;
 
@@ -101,7 +101,7 @@ public class Bot
                         {
                             this.scores += ((Integer)buff.getValue()).intValue();
                             currentQuest.getNextQuestPoint();
-                            System.out.println(this);
+                            //System.out.println(this);
                         }
                         else if(buff.getKey() == IQuest.NEXT_PLACE_TO_VISIT)
                         {
@@ -167,5 +167,11 @@ public class Bot
     public Object getLock4Print()
     {
         return Lock4Print;
+    }
+
+    @Override
+    public int compareTo(Bot other)
+    {
+        return this.scores - other.scores;
     }
 }

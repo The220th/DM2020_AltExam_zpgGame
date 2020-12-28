@@ -26,7 +26,8 @@ public class GameHundler
 
     public static void main(String[] args)
     {
-        GH = new GameHundler( () -> {} );
+        GH = new GameHundler( () -> {System.out.println(GH.getStats());} );
+        GH.delayToPrint = 50000;
         GH.BusinessLogic();
     }
 
@@ -115,7 +116,7 @@ public class GameHundler
             {
                 ++currentTick;
                 printTick+=delayBetweenTick;
-                if(currentTick % 100 == 0)
+                if(currentTick % 500 == 0)
                     System.out.println("Tick = " + currentTick);
                 for(Bot curBot : bots)
                 {
@@ -173,5 +174,19 @@ public class GameHundler
             }
         }
         return res;
+    }
+
+    public String getStats()
+    {
+        ArrayList<Bot> sortedBots = new ArrayList<Bot>(bots);
+        Collections.sort(sortedBots);
+        Collections.reverse(sortedBots);
+        StringBuilder res = new StringBuilder();
+        res.apppend("\n==============================\n");
+        res.append("Tick: " + currentTick + " \n");
+        for(Bot bot : sortedBots)    
+            res.append(bot.getInfo() + "\n");
+        res.apppend("==============================\n");
+        return res.toString();
     }
 }
