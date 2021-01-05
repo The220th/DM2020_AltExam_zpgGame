@@ -23,6 +23,8 @@ public class GameHundler
     private WorldMap map;
     private List<Town> towns;
     private List<Bot> bots;
+	
+	private boolean PAUSED;
 
     public static void main(String[] args)
     {
@@ -115,41 +117,36 @@ public class GameHundler
 
     public void BusinessLogic()
     {
+		GH = this;
         Runnable task = () ->
         {
 			int printTick = 0;
 			while(true)
 			{
-				try
-				{
-					++currentTick;
-					printTick += delayBetweenTick;
-					if(currentTick % 500 == 0)
-						System.out.println("Tick = " + currentTick);
-					for(Bot curBot : bots)
-					{
-						curBot.live();
-					}
-				
-					try
-					{
-						Thread.sleep(delayBetweenTick);
-					}
-					catch(InterruptedException e)
-					{
-						System.out.println(e);
-					}
-					if(printTick >= delayToPrint)
-					{
-						print.run();
-						printTick = 0;
-					}
-				}
-				catch(Throwable t)
-				{
-                    System.out.println(t);
-                    t.printStackTrace();
-				}
+                if(this.PAUSED == false)
+                {
+                    ++currentTick;
+                    printTick += delayBetweenTick;
+                    if(currentTick % 500 == 0)
+                        System.out.println("Tick = " + currentTick);
+                    for(Bot curBot : bots)
+                    {
+                        curBot.live();
+                    }
+                    if(printTick >= delayToPrint)
+                    {
+                        print.run();
+                        printTick = 0;
+                    }
+                }
+                try
+                {
+                    Thread.sleep(delayBetweenTick);
+                }
+                catch(InterruptedException e)
+                {
+                    System.out.println(e);
+                }
 			}
 			
         };
@@ -208,5 +205,19 @@ public class GameHundler
     public int getCurrentTick()
     {
         return currentTick;
+    }
+	
+	/**
+     * Если PAUSED == true, то игра будет на паузе (пути у ботов всё равно будут искаться)
+     * Если PAUSED == false, то игра возобновится
+     */
+    public void pauseGame(boolean Paused)
+    {
+        this.PAUSED = Paused;
+    }
+
+    public boolean isPaused()
+    {
+        return this.PAUSED;
     }
 }

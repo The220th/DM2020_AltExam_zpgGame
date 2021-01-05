@@ -47,12 +47,8 @@ class sFrame extends JFrame
         botsCombo = new JComboBox<Bot>();
         for(Bot bot : buffBotsList)
             botsCombo.addItem(bot);
-        botsCombo.addActionListener(event -> 
-                printedMap.setCurrentBot(botsCombo.getItemAt(botsCombo.getSelectedIndex())));
-
-        JMenu fileMenu = new JMenu("File");
-        fileMenu.add(new TestAction("Open"));
-        fileMenu.add(new TestAction("Save"));
+        botsCombo.addActionListener(event ->{
+                printedMap.setCurrentBot(botsCombo.getItemAt(botsCombo.getSelectedIndex())); printedMap.repaint();});
 
         JMenu BotMenu = new JMenu("BotHundler");
         JMenuItem chooseBotItem = new JMenuItem("Choose bot");
@@ -79,24 +75,10 @@ class sFrame extends JFrame
 
         JMenuBar menubar = new JMenuBar();
         this.setJMenuBar(menubar);
-        menubar.add(fileMenu);
         menubar.add(BotMenu);
 
         this.add(new JScrollPane(printedMap));
         this.pack();
-    }
-
-    class TestAction extends AbstractAction
-    {
-        public TestAction(String name)
-        {
-            super(name);
-        }
-
-        public void actionPerformed(ActionEvent event)
-        {
-            System.out.println(this.getValue(Action.NAME) + " choosed. *Saved or Opened... Coming Soon...* Beep Boop");
-        }
     }
 
     class BotChooser extends JDialog
@@ -125,6 +107,7 @@ class sFrame extends JFrame
         JPanel Gjp;
         LinkedList<JLabel> labels;
         JLabel ticks;
+        JCheckBox chb;
 
         public BotsViewer(JFrame owner, List<Bot> bots)
         {
@@ -132,7 +115,7 @@ class sFrame extends JFrame
             setPreferredSize(new Dimension(1150, 400));
             GridLayout GLout = new GridLayout();
             GLout.setColumns(1);
-            GLout.setRows(bots.size()+2); //+1 для кнопки и ещё +1 для тиков
+            GLout.setRows(bots.size()+2); //+1 для кнопки, тиков и паузы
             int min, buff;
             Bot buffBot = null;
             List<Bot> sortedBots = new ArrayList<Bot>(bots);
@@ -153,13 +136,20 @@ class sFrame extends JFrame
             }
             Gjp = new JPanel();
             Gjp.setLayout(GLout);
+			
+			JPanel buffPanel = new JPanel();
 
             JButton jbutton = new JButton("Refresh");
-            jbutton.addActionListener(event -> this.reset(GameHundler.getCurrentGameHundler().getBots()));
-            Gjp.add(jbutton);
+            jbutton.addActionListener(event -> {this.reset(GameHundler.getCurrentGameHundler().getBots()); printedMap.repaint();});
+            buffPanel.add(jbutton);
+			
+            chb = new JCheckBox("Pause");
+            chb.addActionListener(event -> { GameHundler.getCurrentGameHundler().pauseGame(chb.isSelected()); });
+            buffPanel.add(chb);
 
             ticks = new JLabel("Tick = " + GameHundler.getCurrentGameHundler().getCurrentTick() );
-            Gjp.add((new JPanel()).add(ticks), BorderLayout.CENTER);
+            buffPanel.add((new JPanel()).add(ticks), BorderLayout.CENTER);
+            Gjp.add(buffPanel);
 
             labels = new LinkedList<JLabel>();
             for(Bot bot : sortedBots)
