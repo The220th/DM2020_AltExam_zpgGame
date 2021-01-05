@@ -11,10 +11,10 @@ public class DepthFirstSearcher implements IDeWaySearcher
 {
     private static int numbers = 0;
 
-    WorldMap map;
-    SetBit visited;
-    Stack<sPoint> stack;
-    HashMap<sPoint, sPoint> parent;
+    private WorldMap map;
+    private SetBit visited;
+    private Stack<sPoint> stack;
+    private HashMap<sPoint, sPoint> parent;
 
     public DepthFirstSearcher(WorldMap worldMap)
     {

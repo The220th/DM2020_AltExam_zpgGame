@@ -9,10 +9,10 @@ import ZPG.GameLogic.SetBit;
 
 public class BreadthFirstSearcher implements IDeWaySearcher
 {
-    WorldMap map;
-    SetBit visited;
-    Deque<sPoint> q;
-    HashMap<sPoint, sPoint> parent;
+    private WorldMap map;
+    private SetBit visited;
+    private Deque<sPoint> q;
+    private HashMap<sPoint, sPoint> parent;
 
     public BreadthFirstSearcher(WorldMap worldMap)
     {
