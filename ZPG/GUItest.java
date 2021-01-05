@@ -38,6 +38,7 @@ class sFrame extends JFrame
     private sComponent printedMap;
     private GameHundler GH;
     private JComboBox<Bot> botsCombo;
+	private JScrollPane scrollPane;
 
     public sFrame()
     {
@@ -47,8 +48,23 @@ class sFrame extends JFrame
         botsCombo = new JComboBox<Bot>();
         for(Bot bot : buffBotsList)
             botsCombo.addItem(bot);
-        botsCombo.addActionListener(event ->{
-                printedMap.setCurrentBot(botsCombo.getItemAt(botsCombo.getSelectedIndex())); printedMap.repaint();});
+        botsCombo.addActionListener(event ->
+		{
+                printedMap.setCurrentBot(botsCombo.getItemAt(botsCombo.getSelectedIndex()));
+				
+				JScrollBar buffBar;
+				buffBar = scrollPane.getHorizontalScrollBar();
+				buffBar.setValue(
+				((printedMap.getCurrentBot().getCoords().getX()-50) * buffBar.getMaximum())/GameHundler.getCurrentGameHundler().getMap().getMaxSize()
+				);
+				
+				buffBar = scrollPane.getVerticalScrollBar();
+				buffBar.setValue(
+				((printedMap.getCurrentBot().getCoords().getY()-50) * buffBar.getMaximum())/GameHundler.getCurrentGameHundler().getMap().getMaxSize()
+				);
+				
+				printedMap.repaint();
+		});
 
         JMenu BotMenu = new JMenu("BotHundler");
         JMenuItem chooseBotItem = new JMenuItem("Choose bot");
@@ -77,7 +93,8 @@ class sFrame extends JFrame
         this.setJMenuBar(menubar);
         menubar.add(BotMenu);
 
-        this.add(new JScrollPane(printedMap));
+		scrollPane = new JScrollPane(printedMap);
+        this.add(scrollPane);
         this.pack();
     }
 
@@ -324,6 +341,11 @@ class sComponent extends JComponent
     {
         return GH;
     }
+	
+	public Bot getCurrentBot()
+	{
+		return this.currentBot;
+	}
 
     public void setCurrentBot(Bot bot)
     {
