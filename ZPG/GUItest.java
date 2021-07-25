@@ -15,6 +15,8 @@ import ZPG.GameLogic.Searchers.*;
 import ZPG.GameLogic.GameHundler;
 import ZPG.GameLogic.Bot;
 
+import java.awt.image.BufferedImage;
+
 public class GUItest
 {
     public static void main(String[] args)
@@ -226,6 +228,9 @@ class sComponent extends JComponent
 
     private Color botColor;
     private Color wayColor;
+
+    private BufferedImage bufferedImage;
+    private Graphics2D g;
     
     public sComponent(int Sizeble)
     {
@@ -241,13 +246,17 @@ class sComponent extends JComponent
         botColor = new Color(200, 0, 255);
         wayColor = Color.RED;
 
+        bufferedImage = new BufferedImage(DEFAULT_WIDTH, DEFAULT_HEIGHT, BufferedImage.TYPE_INT_RGB);
+        g = (Graphics2D)bufferedImage.getGraphics();
+
         GH.BusinessLogic();
     }
 
     public void paintComponent(Graphics gOld)
     {
         //System.out.println(currentBot);
-        Graphics2D g = (Graphics2D)gOld;
+        //Graphics2D g = (Graphics2D)gOld;
+        Graphics2D g1 = (Graphics2D)gOld;
         
         int n = map.getMaxSize();
         for(int i = 0; i < n; i++)
@@ -309,6 +318,8 @@ class sComponent extends JComponent
                 y = bot.getCoords().getY();
                 paintBlock(x, y, botColor, g);
             }*/
+
+        g1.drawImage(bufferedImage, 0, 0, null);
     }
 
     public Dimension getPreferredSize()
